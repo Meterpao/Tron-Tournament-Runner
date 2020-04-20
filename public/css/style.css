@@ -1,0 +1,15 @@
+/* TODO: style each page */
+.my-body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-size: max(12px, 2vw);
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.no-bullets {
+  list-style-type: none;
+}
