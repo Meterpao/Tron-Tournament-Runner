@@ -2,6 +2,20 @@
 
 ## CS1320 Final Project
 
+## TODO
+
+- Set up express routing for different pages
+- Set up Database backend for storing player scripts, match results, player data, etc.
+- Create Landing/Welcome page
+- Create About page
+- Create leaderboard page
+- Create Student Profile template page
+- Create Account/Login Page
+  - Figure out how we're going to support accounts/login
+  - Figure out how this will work with script uploading...
+- Figure out how to display replays
+
+
 ### Basic Features
 
 - Students can upload and submit a python script to the tournament
