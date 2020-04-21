@@ -2,6 +2,7 @@
 .my-body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
   font-size: max(12px, 2vw);
+  background-color:rgb(20, 81, 83);
 }
 
 .center {
@@ -13,3 +14,4 @@
 .no-bullets {
   list-style-type: none;
 }
+
