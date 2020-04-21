@@ -6,7 +6,7 @@
 
 - Set up express routing for different pages
 - Set up Database backend for storing player scripts, match results, player data, etc.
-- Create Landing/Welcome page
+- Create Landing/Home page
 - Create About page
 - Create leaderboard page
 - Create Student Profile template page

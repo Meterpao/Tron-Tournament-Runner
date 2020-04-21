@@ -6,6 +6,11 @@ const path = require('path');
 
 // import handlers
 const homeHandler = require('./controllers/home.js');
+const loginHandler = require('./controllers/login.js');
+const aboutHandler = require('./controllers/about.js');
+const leaderboardHandler = require('./controllers/leaderboard.js');
+// TODO this should be a catch-all route
+const studentProfileHandler = require('./controllers/studentProfile.js');
 
 const app = express();
 const port = 8080;
@@ -27,6 +32,10 @@ app.set('view engine', 'hbs');
 
 // Create controller handlers to handle requests at each endpoint
 app.get('/', homeHandler.getHome);
+app.get('/about', aboutHandler.getAbout);
+app.get('/login', loginHandler.getLogin);
+app.get('/leaderboard', leaderboardHandler.getLeaderboard);
+app.get('/studentProfile', studentProfileHandler.getProfile);
 
 // NOTE: This is the sample server.js code we provided, feel free to change the structures
 
