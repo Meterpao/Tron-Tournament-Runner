@@ -4,11 +4,12 @@
 
 ## TODO
 
-- Set up express routing for different pages
+- [DONE] Set up express routing for different pages
 - Set up Database backend for storing player scripts, match results, player data, etc.
-- Create Landing/Home page
-- Create About page
-- Create leaderboard page
+- [DONE] Create Landing/Home page
+- [DONE] Create About page
+- [DONE] Create leaderboard page template
+- integrate backend test data with leaderboard, so it pulls from db
 - Create Student Profile template page
 - Create Account/Login Page
   - Figure out how we're going to support accounts/login
