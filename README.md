@@ -34,49 +34,7 @@ See assignment handout: <https://cs.brown.edu/courses/csci1410/assignments/tron.
 
 ## Database Tables and Scheme
 
-Amazon RDS instance:
-
-- MySQL 8.0.17
-- Free Tier
-- tron-test-database
-- Master username: admin
-- password: tronpassword
-
-Games
-
-- GameId[Integer][Primary Key]
-- FirstBotId[Integer][Foreign Key][Required]
-- SecondBotId[Integer][Foreign Key][Required]
-- SeriesId[Integer][Foreign Key][Required]
-- GameWinner[Integer] (must be FirstBotId or SecondBotId)
-- ReplayId[Integer]
-
-Series
-
-- SeriesId[Integer][Primary Key]
-- FirstBotId[Integer][Foreign Key][Required]
-- SecondBotId[Integer][Foreign Key][Required]
-- SeriesWinner[Integer][Required] (must be FirstBotId or SecondBotId)
-
-Players/Bots
-
-- BotId [Integer][Primary Key]
-- BotName [String][Required]
-- Partner1 [String][Required]
-- Partner2 [String]
-- Partner3 [String]
-- Rank [Integer]
-- ELO [Float]
-- Score [Float]
-
-Replays
-
-- ReplayId [Integer][Primary Key]
-
-STRETCH
-
-Players/Accounts:
-Scripts:
+See DatabaseSetup.md
 
 ### Feature List Details
 
