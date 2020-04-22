@@ -15,7 +15,6 @@
   - Figure out how this will work with script uploading...
 - Figure out how to display replays
 
-
 ### Basic Features
 
 - Students can upload and submit a python script to the tournament
@@ -31,6 +30,46 @@ See assignment handout: <https://cs.brown.edu/courses/csci1410/assignments/tron.
 - Customization
 - Tournament design and scheduling
 - User accounts
+
+## Database Scheme
+
+Tables and Schema
+
+Games
+
+- GameId[Integer][Primary Key]
+- FirstBotId[Integer][Foreign Key][Required]
+- SecondBotId[Integer][Foreign Key][Required]
+- SeriesId[Integer][Foreign Key][Required]
+- GameWinner[Integer] (must be FirstBotId or SecondBotId)
+- ReplayId[Integer]
+
+Series
+
+- SeriesId[Integer][Primary Key]
+- FirstBotId[Integer][Foreign Key][Required]
+- SecondBotId[Integer][Foreign Key][Required]
+- SeriesWinner[Integer][Required] (must be FirstBotId or SecondBotId)
+
+Players/Bots
+
+- BotId [Integer][Primary Key]
+- BotName [String][Required]
+- Partner1 [String][Required]
+- Partner2 [String]
+- Partner3 [String]
+- Rank [Integer]
+- ELO [Float]
+- Score [Float]
+
+Replays
+
+- ReplayId [Integer][Primary Key]
+
+STRETCH
+
+Players/Accounts:
+Scripts:
 
 ### Feature List Details
 
