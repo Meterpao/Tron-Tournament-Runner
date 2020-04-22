@@ -32,9 +32,15 @@ See assignment handout: <https://cs.brown.edu/courses/csci1410/assignments/tron.
 - Tournament design and scheduling
 - User accounts
 
-## Database Scheme
+## Database Tables and Scheme
 
-Tables and Schema
+Amazon RDS instance:
+
+- MySQL 8.0.17
+- Free Tier
+- tron-test-database
+- Master username: admin
+- password: tronpassword
 
 Games
 

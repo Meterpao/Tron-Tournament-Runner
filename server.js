@@ -42,15 +42,40 @@ app.get('/studentProfile', studentProfileHandler.getProfile);
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`));
 
 const mysql = require('mysql2/promise');
-const moment = require('moment');
-const user = '';
-const password = '';
-const db = '';
-const host = 'bdognom-v2.cs.brown.edu';
+//const moment = require('moment');
+const user = 'admin';
+const password = 'tronpassword';
+const db = 'main';
+const host = 'tron-database.cepklshydjdt.us-east-1.rds.amazonaws.com';
+const dbPort = '3306';
 
 const pool = mysql.createPool({
     host: host,
     user: user,
-    password : password,
+    password: password,
+    port: dbPort,
     database: db
 });
+
+async function printDb() {
+    try {
+        response = await pool.query({sql: 'SHOW DATABASES;'});
+        console.log(response);
+    } catch (err) {
+        console.log(err);
+        return [];
+    }
+}
+
+async function printTables() {
+    try {
+        console.log("SHOW TABLES");
+        response = await pool.query({sql: 'SHOW TABLES;'});
+        console.log(response);
+    } catch (err) {
+        console.log(err);
+        return [];
+    }
+}
+
+printTables();
