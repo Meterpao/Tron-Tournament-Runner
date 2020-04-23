@@ -5,16 +5,20 @@
 ## TODO
 
 - [DONE] Set up express routing for different pages
-- Set up Database backend for storing player scripts, match results, player data, etc.
+- [DONE] Set up Database backend for storing player scripts, match results, player data, etc.
 - [DONE] Create Landing/Home page
 - [DONE] Create About page
 - [DONE] Create leaderboard page template
-- integrate backend test data with leaderboard, so it pulls from db
+- [DONE] integrate backend test data with leaderboard, so it pulls from db
 - Create Student Profile template page
-- Create Account/Login Page
+- Link players on Leaderboard page to player profile pages
+- [DONE] Create Account/Login Page
   - Figure out how we're going to support accounts/login
   - Figure out how this will work with script uploading...
 - Figure out how to display replays
+- Figure out how to get server to upload and run python scripts
+- figure out how to get tournament results
+
 
 ### Basic Features
 
