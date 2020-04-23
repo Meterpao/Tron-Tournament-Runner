@@ -16,7 +16,7 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
 
 ## Tables and Schema 
 
-### Games
+### Game
 
 - GameId[Integer][Primary Key]
 - FirstBotId[Integer][Foreign Key][Required]
@@ -32,7 +32,7 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
 - SecondBotId[Integer][Foreign Key][Required]
 - SeriesWinner[Integer][Required] (must be FirstBotId or SecondBotId)
 
-### Players
+### Player
 
 - PlayerId [Integer][Primary Key]
 - BotName [String][Required]
@@ -43,14 +43,14 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
 - ELO [Float]
 - Score [Float]
 
-### Replays
+### Replay
 
 - ReplayId [Integer][Primary Key]
 - link [String][Required]
 
 ## STRETCH
 
-### Accounts
+### Account
 
  - AccountName [String][Primary Key]
  - PlayerId [Integer][Foreign Key]
@@ -58,7 +58,7 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
  - Password [String][Required]
  - Email [String]
 
-### Scripts
+### Script
 
  - ScriptId [Integer][Primary Key]
  - ScriptString [String][Required]

@@ -16,13 +16,13 @@ const app = express();
 const port = 8080;
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // If you choose not to use handlebars as template engine, you can safely delete the following part and use your own way to render content
 // view engine setup
-app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/'}));
+app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/' }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -57,25 +57,106 @@ const pool = mysql.createPool({
     database: db
 });
 
-async function printDb() {
-    try {
-        response = await pool.query({sql: 'SHOW DATABASES;'});
-        console.log(response);
-    } catch (err) {
-        console.log(err);
-        return [];
-    }
-}
-
 async function printTables() {
     try {
         console.log("SHOW TABLES");
-        response = await pool.query({sql: 'SHOW TABLES;'});
-        console.log(response);
+        response = await pool.query({ sql: 'SHOW TABLES;' });
+        console.log(response[0]);
     } catch (err) {
         console.log(err);
-        return [];
     }
 }
 
-printTables();
+// create all the tables for tron
+async function createTables() {
+    try {
+        console.log("Creating tables anew");
+        console.log("Deleting old tables if they exist...");
+        let response = await pool.query('DROP TABLE IF EXISTS game;');
+        response = await pool.query('DROP TABLE IF EXISTS series;');
+        response = await pool.query('DROP TABLE IF EXISTS account;');
+        response = await pool.query('DROP TABLE IF EXISTS script;');
+        response = await pool.query('DROP TABLE IF EXISTS replay;');
+        response = await pool.query('DROP TABLE IF EXISTS player;');
+
+        console.log("Creating new tables...")
+        response = await pool.query('CREATE TABLE IF NOT EXISTS player (' +
+            'playerId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'botName TEXT, partner1 TEXT, partner2 TEXT, partner3 TEXT,' +
+            'rank INTEGER, elo FLOAT, score FLOAT);');
+        response = await pool.query('CREATE TABLE IF NOT EXISTS replay (' +
+            'replayId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'link TEXT);');
+        response = await pool.query('CREATE TABLE IF NOT EXISTS series (' +
+            'seriesId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'playerOneId INTEGER,' +
+            'INDEX pOneId (playerOneId),' +
+            'FOREIGN KEY (playerOneId)' +
+            '    REFERENCES player(playerId)' +
+            '    ON DELETE CASCADE,' +
+            'playerTwoId INTEGER,' +
+            'INDEX pTwoId (playerTwoId),' +
+            'FOREIGN KEY (playerTwoId)' +
+            '    REFERENCES player(playerId)' +
+            '    ON DELETE CASCADE,' +
+            'seriesWinner INTEGER,' +
+            'INDEX seriesWinnerId (seriesWinner),' +
+            'FOREIGN KEY (seriesWinner)' +
+            '    REFERENCES player(playerId)' +
+            '    ON DELETE CASCADE);');
+        response = await pool.query('CREATE TABLE IF NOT EXISTS game (' +
+            'gameId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'seriesId INTEGER, ' +
+            'INDEX sId (seriesId),' +
+            'FOREIGN KEY (seriesId)' +
+            '    REFERENCES series(seriesId)' +
+            '    ON DELETE CASCADE,' +
+            'playerOneId INTEGER, ' +
+            'INDEX pOneId (playerOneId),' +
+            'FOREIGN KEY (playerOneId)' +
+            '    REFERENCES player(playerId)' +
+            '    ON DELETE CASCADE,' +
+            'playerTwoId INTEGER, ' +
+            'INDEX pTwoId (playerTwoId),' +
+            'FOREIGN KEY (playerTwoId)' +
+            '    REFERENCES player(playerId)' +
+            '    ON DELETE CASCADE,' +
+            'winnerId INTEGER, ' +
+            'INDEX wId (winnerId),' +
+            'FOREIGN KEY (winnerId)' +
+            '    REFERENCES player(playerId)' +
+            '    ON DELETE CASCADE,' +
+            'replayId INTEGER, ' +
+            'INDEX rId (replayId),' +
+            'FOREIGN KEY (replayId)' +
+            '    REFERENCES replay(replayId)' +
+            '    ON DELETE CASCADE' +
+            ');');
+
+        // stretch goal tables
+        response = await pool.query('CREATE TABLE IF NOT EXISTS account (' +
+            'accountName VARCHAR(255) PRIMARY KEY, ' + 
+            'playerId INTEGER,' +
+            'INDEX pId (playerId),' +
+            'FOREIGN KEY (playerId)' +
+            '    REFERENCES player(playerId)' +
+            '    ON DELETE CASCADE,' +
+            'username TEXT, password TEXT, email TEXT);');
+
+        response = await pool.query('CREATE TABLE IF NOT EXISTS script (' +
+            'scriptId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'scriptString TEXT,' +
+            'playerId INTEGER,' +
+            'INDEX pId (playerId),' +
+            'FOREIGN KEY (playerId)' +
+            '    REFERENCES player(playerId)' +
+            '    ON DELETE CASCADE);');
+        
+        console.log("All tables created successfully");
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//createTables();
+//printTables();
