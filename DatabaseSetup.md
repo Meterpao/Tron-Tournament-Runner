@@ -39,9 +39,10 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
 - Partner1 [String][Required]
 - Partner2 [String]
 - Partner3 [String]
-- Rank [Integer]
 - ELO [Float]
 - Score [Float]
+
+Rank should be calculated upon loading, according to score.
 
 ### Replay
 

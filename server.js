@@ -35,7 +35,18 @@ app.get('/', homeHandler.getHome);
 app.get('/about', aboutHandler.getAbout);
 app.get('/login', loginHandler.getLogin);
 app.get('/leaderboard', leaderboardHandler.getLeaderboard);
+app.get('/getPlayers', getPlayers);
+
+// this should be a catch all, similar to rooms in assignment 4
 app.get('/studentProfile', studentProfileHandler.getProfile);
+
+// API functions
+
+async function getPlayers(request, response) {
+    let players = await dbGetAllPlayers();
+    response.json(players);
+}
+
 
 // NOTE: This is the sample server.js code we provided, feel free to change the structures
 
@@ -61,10 +72,32 @@ async function printTables() {
     try {
         console.log("SHOW TABLES");
         response = await pool.query({ sql: 'SHOW TABLES;' });
-        console.log(response[0]);
+        let tables = response[0];
+        for (let i = 0; i < tables.length; i++) {
+            let table = tables[i]['Tables_in_main'];
+            console.log("TABLE: " + table);
+            response = await pool.query('DESCRIBE ' + table + ";");
+            console.log(response[0]);
+            response = await pool.query('SELECT * FROM ' + table + ";");
+            console.log(response[0]);}
     } catch (err) {
         console.log(err);
     }
+}
+
+// returns a list of all players (players as dictionary objects)
+async function dbGetAllPlayers() {
+    let result = [];
+    try {
+        response = await pool.query({ sql: 'SELECT * FROM player;' });
+        let players = response[0];
+        for (let i = 0; i < players.length; i++) {
+            result.push(players[i]);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
 }
 
 // create all the tables for tron
@@ -81,14 +114,14 @@ async function createTables() {
 
         console.log("Creating new tables...")
         response = await pool.query('CREATE TABLE IF NOT EXISTS player (' +
-            'playerId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'playerId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
             'botName TEXT, partner1 TEXT, partner2 TEXT, partner3 TEXT,' +
-            'rank INTEGER, elo FLOAT, score FLOAT);');
+            'elo FLOAT, score FLOAT);');
         response = await pool.query('CREATE TABLE IF NOT EXISTS replay (' +
-            'replayId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'replayId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
             'link TEXT);');
         response = await pool.query('CREATE TABLE IF NOT EXISTS series (' +
-            'seriesId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'seriesId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
             'playerOneId INTEGER,' +
             'INDEX pOneId (playerOneId),' +
             'FOREIGN KEY (playerOneId)' +
@@ -105,7 +138,7 @@ async function createTables() {
             '    REFERENCES player(playerId)' +
             '    ON DELETE CASCADE);');
         response = await pool.query('CREATE TABLE IF NOT EXISTS game (' +
-            'gameId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'gameId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
             'seriesId INTEGER, ' +
             'INDEX sId (seriesId),' +
             'FOREIGN KEY (seriesId)' +
@@ -135,7 +168,7 @@ async function createTables() {
 
         // stretch goal tables
         response = await pool.query('CREATE TABLE IF NOT EXISTS account (' +
-            'accountName VARCHAR(255) PRIMARY KEY, ' + 
+            'accountName VARCHAR(255) PRIMARY KEY, ' +
             'playerId INTEGER,' +
             'INDEX pId (playerId),' +
             'FOREIGN KEY (playerId)' +
@@ -144,19 +177,99 @@ async function createTables() {
             'username TEXT, password TEXT, email TEXT);');
 
         response = await pool.query('CREATE TABLE IF NOT EXISTS script (' +
-            'scriptId INTEGER PRIMARY KEY AUTO_INCREMENT, ' + 
+            'scriptId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
             'scriptString TEXT,' +
             'playerId INTEGER,' +
             'INDEX pId (playerId),' +
             'FOREIGN KEY (playerId)' +
             '    REFERENCES player(playerId)' +
             '    ON DELETE CASCADE);');
-        
+
         console.log("All tables created successfully");
     } catch (err) {
         console.log(err);
     }
 }
+
+async function initFakeData() {
+    let success = await initFakePlayerData();
+    console.log("Initialized fake player data: " + success);
+    success = await initFakeSeriesData();
+    console.log("Initialized fake series data: " + success);
+}
+
+async function initFakePlayerData() {
+    let playerStatement = 'INSERT INTO player (botName, partner1, partner2, elo, score)' +
+        ' VALUES (?,?,?,?,?);';
+    let fakePlayerData = [
+        ['bot1', 'me', 'you', 1000, '10'],
+        ['bot2', 'bob', 'john', 2000, '20'],
+        ['bot3', 'sam', 'carla', 0, '0.5'],
+        ['bot4', 'alex', 'julia', 1542.2, '16.5'],
+        ['bot5', '@@@', '$$$$', 10, '1.0'],
+    ];
+    try {
+        for (let i = 0; i < fakePlayerData.length; i++) {
+            response = await pool.query(playerStatement, fakePlayerData[i]);
+            console.log(response);
+        }
+        console.log("initFakePlayerData complete.");
+        return true;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}
+
+async function initFakeSeriesData() {
+    let statement = 'INSERT INTO series (firstBotId, secondBotId, seriesWinner)' +
+        ' VALUES (?,?,?);';
+    let data = [
+        ['bot1', 'bot2', 'bot2'],
+        ['bot2', 'bot3', 'bot2'],
+        ['bot4', 'bot5', 'bot4'],
+        ['bot1', 'bot5', 'bot1']
+    ];
+    try {
+        for (let i = 0; i < fakePlayerData.length; i++) {
+            response = await pool.query(statement, data[i]);
+            console.log(response);
+        }
+        console.log("initFakeSeriesData complete.");
+        return true;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}
+
+//initFakeData();
+
+// aws access info
+// const AWS = require('aws-sdk');
+// const fs = require('fs');
+// const aws_access_key_id = 'ASIAXANMLBZCDMCPITEX';
+// const aws_secret_access_key = 'LV5JF63UxTlLBBHb4gQOn+3J+3VrrEsnnA+UOkhE';
+// //configuring the AWS environment
+// AWS.config.update({
+//     accessKeyId: aws_access_key_id,
+//     secretAccessKey: aws_secret_access_key
+// });
+
+// Set the region 
+// AWS.config.update({region: 'us-east-1'});
+// // Create S3 service object
+// s3 = new AWS.S3({ apiVersion: '2006-03-01' });
+// // Call S3 to list the buckets
+// s3.listBuckets(function (err, data) {
+//     if (err) {
+//         console.log("Error", err);
+//     } else {
+//         console.log("listing buckets...");
+//         console.log("Success", data.Buckets);
+//     }
+// });
+
 
 //createTables();
 //printTables();
