@@ -10,15 +10,18 @@
 - [DONE] Create About page
 - [DONE] Create leaderboard page template
 - [DONE] integrate backend test data with leaderboard, so it pulls from db
-- Create Student Profile template page
-- Link players on Leaderboard page to player profile pages
+- [Done] Create Student Profile template page
+- [Done] Link players on Leaderboard page to player profile pages
 - [DONE] Create Account/Login Page
   - Figure out how we're going to support accounts/login
+    - upon login we can just go straight to the player's page
   - Figure out how this will work with script uploading...
+- Display match history on Player Profile page
+- Make fake game/series data
+- Make player profile page look nice
 - Figure out how to display replays
 - Figure out how to get server to upload and run python scripts
 - figure out how to get tournament results
-
 
 ### Basic Features
 
