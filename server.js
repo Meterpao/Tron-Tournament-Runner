@@ -9,7 +9,6 @@ const homeHandler = require('./controllers/home.js');
 const loginHandler = require('./controllers/login.js');
 const aboutHandler = require('./controllers/about.js');
 const leaderboardHandler = require('./controllers/leaderboard.js');
-// TODO this should be a catch-all route
 const studentProfileHandler = require('./controllers/studentProfile.js');
 
 const app = express();
@@ -36,6 +35,7 @@ app.get('/about', aboutHandler.getAbout);
 app.get('/login', loginHandler.getLogin);
 app.get('/leaderboard', leaderboardHandler.getLeaderboard);
 app.get('/getPlayers', getPlayers);
+app.get('/:player', getPlayer);
 
 // this should be a catch all, similar to rooms in assignment 4
 app.get('/studentProfile', studentProfileHandler.getProfile);
@@ -45,6 +45,28 @@ app.get('/studentProfile', studentProfileHandler.getProfile);
 async function getPlayers(request, response) {
     let players = await dbGetAllPlayers();
     response.json(players);
+}
+
+// endpoint that will return the profile page for the player specified in the request
+// parameters. Renders the student Profile page.
+async function getPlayer(request, response) {
+    let player = request.params.player;
+    let playerInfo = await dbGetPlayer(player);
+    // if player does not exist, db query returns empty object which will not have
+    // playerId key
+    let playerExists = typeof playerInfo['playerId'] !== 'undefined';
+    if (playerExists) {
+        response.render('studentProfile', { 
+            botName: player, 
+            partner1: playerInfo['partner1'],
+            partner2: playerInfo['partner2'],
+            partner3: playerInfo['partner3'],
+            elo: playerInfo['elo'],
+            score: playerInfo['score'],
+        });
+    } else {
+        response.status(404).send('\'' + player + '\' bot does not exist');
+    }
 }
 
 
@@ -79,7 +101,8 @@ async function printTables() {
             response = await pool.query('DESCRIBE ' + table + ";");
             console.log(response[0]);
             response = await pool.query('SELECT * FROM ' + table + ";");
-            console.log(response[0]);}
+            console.log(response[0]);
+        }
     } catch (err) {
         console.log(err);
     }
@@ -94,6 +117,19 @@ async function dbGetAllPlayers() {
         for (let i = 0; i < players.length; i++) {
             result.push(players[i]);
         }
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+}
+
+// given a bot name, get the rest of the player's information
+async function dbGetPlayer(botName) {
+    let result;
+    try {
+        let statement = 'SELECT * FROM player WHERE botName = ?;';
+        response = await pool.query(statement, [botName]);
+        result = response[0][0];
     } catch (err) {
         console.log(err);
     }

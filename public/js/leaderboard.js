@@ -27,7 +27,7 @@ async function initializeLeaderboard() {
         // append rank
         let th = document.createElement('th');
         th.setAttribute('scope', 'row');
-        th.innerHTML = i;
+        th.innerHTML = i + 1;
         tr.appendChild(th);
 
         // add default image
@@ -42,11 +42,22 @@ async function initializeLeaderboard() {
         // if we need to add more attributes to leaderboard, simply add the needed attribute to 
         // this attributes list
         let attributes = ['botName', 'score', 'elo'];
+        let botName = '';
         for (let j = 0; j < attributes.length; j++) {
+            if (attributes[j] === 'botName') {
+                botName = player[attributes[j]];
+            }
             let td = document.createElement('td');
             td.innerHTML = player[attributes[j]];
             tr.appendChild(td);
         }
+
+        // set row as clickable link to player profile
+        tr.setAttribute('class', 'clickable');
+        tr.addEventListener("click", async function(event) {
+            event.preventDefault();
+            window.location = "./" + botName;
+        })
 
         // append to table
         leaderboard.appendChild(tr);
