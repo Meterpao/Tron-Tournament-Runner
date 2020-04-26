@@ -17,8 +17,10 @@ This is meant to be a webpage for Brown's CS1410 (Intro to AI) final project, th
 - [DONE] Create Account/Login Page
 - Make current site and styling look more like the prototype
 - Make player profile page look nice
-- Figure out how to display replays
-  - decide if we want to create new replay system, or just use what they are currently using
+  - [DONE] display series on player page (each series is a clickable link)
+  - [DONE] create series replay page
+    - display replays on series page
+    - style series page
 - Display match history on Player Profile page
 - Get EC2 storage working, so replays/scripts can be stored online
 - Make fake game/series data (or find a way to use data provided by Leon)

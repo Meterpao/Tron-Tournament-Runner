@@ -1,8 +1,17 @@
 <h1 class="center"> {{botName}} </h1>
-<p>Partner 1: {{partner1}}</p>
-<p>Partner 2: {{partner2}}</p>
-<p>Partner 3: {{partner3}}</p>
-<p>ELO: {{elo}}</p>
-<p>Score: {{score}}</p>
+<div id="playerIdDiv" style="display: none"> {{playerId}}</div>
+<div id="playerInfo">
+    <p>Player id: {{playerId}}</p>
+    <p>Partner 1: {{partner1}}</p>
+    <p>Partner 2: {{partner2}}</p>
+    <p>Partner 3: {{partner3}}</p>
+    <p>ELO: {{elo}}</p>
+    <p>Score: {{score}}</p>
+</div>
+<div>
+    <p>Match History:</p>
+    <ul id="matchHistory"></ul>
+</div>
+
 
 <script src="/js/studentProfile.js"></script>

@@ -35,7 +35,9 @@ app.get('/about', aboutHandler.getAbout);
 app.get('/login', loginHandler.getLogin);
 app.get('/leaderboard', leaderboardHandler.getLeaderboard);
 app.get('/getPlayers', getPlayers);
-app.get('/:player', getPlayer);
+app.get('/getSeriesData/:seriesId', getSeriesData);
+app.get('/renderSeries/:seriesId', renderSeriesPage);
+app.get('/:player', renderPlayerPage);
 
 // this should be a catch all, similar to rooms in assignment 4
 app.get('/studentProfile', studentProfileHandler.getProfile);
@@ -49,12 +51,12 @@ async function getPlayers(request, response) {
 
 // endpoint that will return the profile page for the player specified in the request
 // parameters. Renders the student Profile page.
-async function getPlayer(request, response) {
+async function renderPlayerPage(request, response) {
     let player = request.params.player;
     let playerInfo = await dbGetPlayer(player);
-    let playerExists = typeof playerInfo !== 'undefined';
-    if (playerExists) {
+    if (typeof playerInfo !== 'undefined') {
         response.render('studentProfile', { 
+            playerId: playerInfo['playerId'],
             botName: player, 
             partner1: playerInfo['partner1'],
             partner2: playerInfo['partner2'],
@@ -65,6 +67,28 @@ async function getPlayer(request, response) {
     } else {
         response.status(404).send('\'' + player + '\' bot does not exist');
     }
+}
+
+async function renderSeriesPage(request, response) {
+    let seriesId = request.params.seriesId;
+    // TODO
+    // get games from series
+    // get replays for each game
+
+    if (true) {
+        // TODO render page properly
+        response.render('series', { 
+            seriesId: seriesId
+        });
+    } else {
+        response.status(404).send('Cannot render series of id: ' + seriesId);
+    }
+}
+
+async function getSeriesData(request, response) {
+    let seriesId = request.params.seriesId;
+    let seriesData = await dbGetSeries(seriesId);
+    response.json(seriesData);
 }
 
 
@@ -121,13 +145,26 @@ async function dbGetAllPlayers() {
     return result;
 }
 
-// given a bot name, get the rest of the player's information
+// given a bot name, get all of the player's information
 async function dbGetPlayer(botName) {
     let result;
     try {
         let statement = 'SELECT * FROM player WHERE botName = ?;';
         response = await pool.query(statement, [botName]);
         result = response[0][0];
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+}
+
+// given a player id, get all the series that player has played in
+async function dbGetSeries(playerId) {
+    let result;
+    try {
+        let statement = 'SELECT * FROM series WHERE playerOneId = ? OR playerTwoId = ?;';
+        response = await pool.query(statement, [playerId, playerId]);
+        result = response[0];
     } catch (err) {
         console.log(err);
     }
@@ -257,8 +294,8 @@ async function initFakePlayerData() {
 }
 
 async function initFakeSeriesData() {
-    let statement = "INSERT INTO series (playerOneId, playerTwoId, seriesWinner)" +
-        " VALUES (?,?,?);";
+    let statement = "INSERT INTO series (playerOneId, playerTwoId, seriesWinner, winCount)" +
+        " VALUES (?,?,?, ?);";
     let data = [
         ['1', '2', '2', 5],
         ['2', '3', '3', 5],

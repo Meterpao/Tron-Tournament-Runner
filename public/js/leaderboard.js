@@ -8,7 +8,7 @@ async function fetchPlayers() {
 }
 
 // update html page
-async function initializeLeaderboard() {
+async function initLeaderboard() {
     let playersJson = await fetchPlayers();
 
     // clear old leaderboard
@@ -64,4 +64,4 @@ async function initializeLeaderboard() {
     }
 }
 
-window.onload = initializeLeaderboard;
+window.onload = initLeaderboard;
