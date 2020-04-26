@@ -52,9 +52,7 @@ async function getPlayers(request, response) {
 async function getPlayer(request, response) {
     let player = request.params.player;
     let playerInfo = await dbGetPlayer(player);
-    // if player does not exist, db query returns empty object which will not have
-    // playerId key
-    let playerExists = typeof playerInfo['playerId'] !== 'undefined';
+    let playerExists = typeof playerInfo !== 'undefined';
     if (playerExists) {
         response.render('studentProfile', { 
             botName: player, 
@@ -172,7 +170,8 @@ async function createTables() {
             'INDEX seriesWinnerId (seriesWinner),' +
             'FOREIGN KEY (seriesWinner)' +
             '    REFERENCES player(playerId)' +
-            '    ON DELETE CASCADE);');
+            '    ON DELETE CASCADE,' + 
+            'winCount INTEGER);');
         response = await pool.query('CREATE TABLE IF NOT EXISTS game (' +
             'gameId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
             'seriesId INTEGER, ' +
@@ -230,8 +229,9 @@ async function createTables() {
 async function initFakeData() {
     let success = await initFakePlayerData();
     console.log("Initialized fake player data: " + success);
-    success = await initFakeSeriesData();
-    console.log("Initialized fake series data: " + success);
+    let success2 = await initFakeSeriesData();
+    console.log("Initialized fake series data: " + success2);
+    return success && success2;
 }
 
 async function initFakePlayerData() {
@@ -247,7 +247,6 @@ async function initFakePlayerData() {
     try {
         for (let i = 0; i < fakePlayerData.length; i++) {
             response = await pool.query(playerStatement, fakePlayerData[i]);
-            console.log(response);
         }
         console.log("initFakePlayerData complete.");
         return true;
@@ -258,18 +257,17 @@ async function initFakePlayerData() {
 }
 
 async function initFakeSeriesData() {
-    let statement = 'INSERT INTO series (firstBotId, secondBotId, seriesWinner)' +
-        ' VALUES (?,?,?);';
+    let statement = "INSERT INTO series (playerOneId, playerTwoId, seriesWinner)" +
+        " VALUES (?,?,?);";
     let data = [
-        ['bot1', 'bot2', 'bot2'],
-        ['bot2', 'bot3', 'bot2'],
-        ['bot4', 'bot5', 'bot4'],
-        ['bot1', 'bot5', 'bot1']
+        ['1', '2', '2', 5],
+        ['2', '3', '3', 5],
+        ['4', '5', '4', 4],
+        ['1', '5', '1', 4]
     ];
     try {
-        for (let i = 0; i < fakePlayerData.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             response = await pool.query(statement, data[i]);
-            console.log(response);
         }
         console.log("initFakeSeriesData complete.");
         return true;
@@ -279,7 +277,16 @@ async function initFakeSeriesData() {
     }
 }
 
-//initFakeData();
+// drop tables, re-create, re-initialize with fake data
+async function resetDb() {
+    try {
+        let res = await createTables();
+        res = await initFakeData();
+        console.log("DB successfully reset.");
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 // aws access info
 // const AWS = require('aws-sdk');
@@ -305,7 +312,3 @@ async function initFakeSeriesData() {
 //         console.log("Success", data.Buckets);
 //     }
 // });
-
-
-//createTables();
-//printTables();

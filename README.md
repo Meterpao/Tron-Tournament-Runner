@@ -12,8 +12,8 @@ This is meant to be a webpage for Brown's CS1410 (Intro to AI) final project, th
 - [DONE] Create About page
 - [DONE] Create leaderboard page template
 - [DONE] integrate backend test data with leaderboard, so it pulls from db
-- [Done] Create Student Profile template page
-- [Done] Link players on Leaderboard page to player profile pages
+- [DONE] Create Student Profile template page
+- [DONE] Link players on Leaderboard page to player profile pages
 - [DONE] Create Account/Login Page
 - Make current site and styling look more like the prototype
 - Make player profile page look nice
@@ -25,7 +25,7 @@ This is meant to be a webpage for Brown's CS1410 (Intro to AI) final project, th
 - Figure out how to get server to upload and run python scripts
 - figure out how to get tournament results
 - Figure out how we're going to support accounts/login
-    - upon login we can just go straight to the player's page
+  - upon login we can just go straight to the player's page
   - Figure out how this will work with script uploading...
 
 ### Basic Features

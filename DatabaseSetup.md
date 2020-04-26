@@ -18,46 +18,47 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
 
 ### Game
 
-- GameId[Integer][Primary Key]
-- FirstBotId[Integer][Foreign Key][Required]
-- SecondBotId[Integer][Foreign Key][Required]
-- SeriesId[Integer][Foreign Key][Required]
-- GameWinner[Integer] (must be FirstBotId or SecondBotId)
-- ReplayId[Integer]
+- gameId[Integer][Primary Key]
+- playerOneId[Integer][Foreign Key][Required]
+- playerTwoId[Integer][Foreign Key][Required]
+- seriesId[Integer][Foreign Key][Required]
+- gameWinner[Integer] (must be FirstBotId or SecondBotId)
+- replayId[Integer]
 
 ### Series
 
-- SeriesId[Integer][Primary Key]
-- FirstBotId[Integer][Foreign Key][Required]
-- SecondBotId[Integer][Foreign Key][Required]
-- SeriesWinner[Integer][Required] (must be FirstBotId or SecondBotId)
+- seriesId[Integer][Primary Key]
+- playerOneId[Integer][Foreign Key][Required]
+- playerTwoId[Integer][Foreign Key][Required]
+- seriesWinner[Integer][Required] (must be FirstBotId or SecondBotId)
+- winCOunt[Integer][Required] (must be b/w 3-5, since every series is best of 5)
 
 ### Player
 
-- PlayerId [Integer][Primary Key]
-- BotName [String][Required]
-- Partner1 [String][Required]
-- Partner2 [String]
-- Partner3 [String]
-- ELO [Float]
-- Score [Float]
+- playerId [Integer][Primary Key]
+- botName [String][Required]
+- partner1 [String][Required]
+- partner2 [String]
+- partner3 [String]
+- elo [Float]
+- score [Float]
 
 Rank should be calculated upon loading, according to score.
 
 ### Replay
 
-- ReplayId [Integer][Primary Key]
+- replayId [Integer][Primary Key]
 - link [String][Required]
 
 ## STRETCH
 
 ### Account
 
- - AccountName [String][Primary Key]
- - PlayerId [Integer][Foreign Key]
- - Username [String][Required]
- - Password [String][Required]
- - Email [String]
+- accountName [String][Primary Key]
+- playerId [Integer][Foreign Key]
+- username [String][Required]
+- password [String][Required]
+- email [String]
 
 ### Script
 
