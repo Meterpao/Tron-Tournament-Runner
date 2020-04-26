@@ -4,7 +4,7 @@
 
 This is meant to be a webpage for Brown's CS1410 (Intro to AI) final project, the Tron Tournament. The webpage is meant to make the tournament more fun and accessible for students in the class with an interactive leaderboard, match replays, and more information about the tournament.
 
-## TODO
+## TODO (in rough priority)
 
 - [DONE] Set up express routing for different pages
 - [DONE] Set up Database backend for storing player scripts, match results, player data, etc.
@@ -15,15 +15,18 @@ This is meant to be a webpage for Brown's CS1410 (Intro to AI) final project, th
 - [Done] Create Student Profile template page
 - [Done] Link players on Leaderboard page to player profile pages
 - [DONE] Create Account/Login Page
-  - Figure out how we're going to support accounts/login
-    - upon login we can just go straight to the player's page
-  - Figure out how this will work with script uploading...
-- Display match history on Player Profile page
-- Make fake game/series data
+- Make current site and styling look more like the prototype
 - Make player profile page look nice
 - Figure out how to display replays
+  - decide if we want to create new replay system, or just use what they are currently using
+- Display match history on Player Profile page
+- Get EC2 storage working, so replays/scripts can be stored online
+- Make fake game/series data (or find a way to use data provided by Leon)
 - Figure out how to get server to upload and run python scripts
 - figure out how to get tournament results
+- Figure out how we're going to support accounts/login
+    - upon login we can just go straight to the player's page
+  - Figure out how this will work with script uploading...
 
 ### Basic Features
 
