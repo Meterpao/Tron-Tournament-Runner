@@ -56,7 +56,7 @@ async function initLeaderboard() {
         tr.setAttribute('class', 'clickable');
         tr.addEventListener("click", async function(event) {
             event.preventDefault();
-            window.location = "./" + botName;
+            window.location = "./player/" + botName;
         })
 
         // append to table

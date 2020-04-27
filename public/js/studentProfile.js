@@ -4,7 +4,7 @@ let matchHistory = document.getElementById('matchHistory');
 
 // fetch series from API endpoint
 async function fetchSeries() {
-    let res = await fetch('/getSeriesData/' + playerId);
+    let res = await fetch('../getSeriesData/' + playerId);
     return res.json();
 }
 
@@ -49,7 +49,7 @@ async function initSeriesList() {
         li.setAttribute('class', 'clickable');
         li.addEventListener("click", async function(event) {
             event.preventDefault();
-            window.location = "./renderSeries/" + series['seriesId'];
+            window.location = "/series/" + series['seriesId'];
         })
 
         // append to table

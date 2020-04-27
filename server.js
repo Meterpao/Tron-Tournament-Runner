@@ -36,8 +36,8 @@ app.get('/login', loginHandler.getLogin);
 app.get('/leaderboard', leaderboardHandler.getLeaderboard);
 app.get('/getPlayers', getPlayers);
 app.get('/getSeriesData/:seriesId', getSeriesData);
-app.get('/renderSeries/:seriesId', renderSeriesPage);
-app.get('/:player', renderPlayerPage);
+app.get('/series/:seriesId', renderSeriesPage);
+app.get('/player/:player', renderPlayerPage);
 
 // this should be a catch all, similar to rooms in assignment 4
 app.get('/studentProfile', studentProfileHandler.getProfile);
@@ -52,12 +52,12 @@ async function getPlayers(request, response) {
 // endpoint that will return the profile page for the player specified in the request
 // parameters. Renders the student Profile page.
 async function renderPlayerPage(request, response) {
-    let player = request.params.player;
-    let playerInfo = await dbGetPlayer(player);
+    let botName = request.params.player;
+    let playerInfo = await dbGetPlayer(botName);
     if (typeof playerInfo !== 'undefined') {
         response.render('studentProfile', { 
             playerId: playerInfo['playerId'],
-            botName: player, 
+            botName: botName, 
             partner1: playerInfo['partner1'],
             partner2: playerInfo['partner2'],
             partner3: playerInfo['partner3'],
