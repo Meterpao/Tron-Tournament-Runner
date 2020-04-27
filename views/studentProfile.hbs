@@ -1,4 +1,7 @@
+<body>
+<div id="botNum">
 <h1 class="center"> {{botName}} </h1>
+</div>
 <div id="playerIdDiv" style="display: none"> {{playerId}}</div>
 <div id="playerInfo">
     <p>Player id: {{playerId}}</p>
@@ -8,10 +11,57 @@
     <p>ELO: {{elo}}</p>
     <p>Score: {{score}}</p>
 </div>
-<div>
+<div id="matchHistory">
     <p>Match History:</p>
     <ul id="matchHistory"></ul>
 </div>
-
+</body>
+<style>
+    body{
+        color: #dfd9d7;
+        box-sizing: border-box;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        background-image: url('https://4.bp.blogspot.com/-BweIufIseaQ/T77OxbauWeI/AAAAAAABIlA/iqqcL7P0DgA/s1600/TRON_UPRISING_MIELGO.jpg');
+    }
+    #matchHistory:hover{
+        cursor: pointer;
+    }
+    h1{
+        font-size: 8vw;
+        font-weight: bolder;
+    }
+    p{
+        font-size: 2.5vw;
+    }
+    #botNum{
+        width: 50%;
+        margin-left: 25%;
+        height: 100px;
+        margin-top: 30px;
+        border: 3px dashed #eea4ed;
+    }
+    .center{
+        text-align: center;
+        vertical-align: middle;
+        line-height: 100px;
+    }
+    #playerInfo{
+        margin-top: 40px;
+        width: 70%;
+        margin-left: 15%;
+        border: 3px dashed #eea4ed;
+        text-align: center;
+        height: auto;
+        vertical-align: middle;
+    }
+    #matchHistory{
+        margin-top: 40px;
+        height: auto;
+        width: 50%;
+        margin-left: 25%;
+        border: 3px dashed #eea4ed;
+        text-align: center;
+    }
+</style>
 
 <script src="/js/studentProfile.js"></script>
