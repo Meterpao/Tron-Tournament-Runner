@@ -176,11 +176,9 @@ async function createTables() {
     try {
         console.log("Creating tables anew");
         console.log("Deleting old tables if they exist...");
-        let response = await pool.query('DROP TABLE IF EXISTS game;');
-        response = await pool.query('DROP TABLE IF EXISTS series;');
+        let response = await pool.query('DROP TABLE IF EXISTS series;');
         response = await pool.query('DROP TABLE IF EXISTS account;');
         response = await pool.query('DROP TABLE IF EXISTS script;');
-        response = await pool.query('DROP TABLE IF EXISTS replay;');
         response = await pool.query('DROP TABLE IF EXISTS player;');
 
         console.log("Creating new tables...")
@@ -188,9 +186,6 @@ async function createTables() {
             'playerId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
             'botName TEXT, partner1 TEXT, partner2 TEXT, partner3 TEXT,' +
             'elo FLOAT, score FLOAT);');
-        response = await pool.query('CREATE TABLE IF NOT EXISTS replay (' +
-            'replayId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
-            'link TEXT);');
         response = await pool.query('CREATE TABLE IF NOT EXISTS series (' +
             'seriesId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
             'playerOneId INTEGER,' +
@@ -208,35 +203,8 @@ async function createTables() {
             'FOREIGN KEY (seriesWinner)' +
             '    REFERENCES player(playerId)' +
             '    ON DELETE CASCADE,' + 
+            'replayLink TEXT,' + 
             'winCount INTEGER);');
-        response = await pool.query('CREATE TABLE IF NOT EXISTS game (' +
-            'gameId INTEGER PRIMARY KEY AUTO_INCREMENT, ' +
-            'seriesId INTEGER, ' +
-            'INDEX sId (seriesId),' +
-            'FOREIGN KEY (seriesId)' +
-            '    REFERENCES series(seriesId)' +
-            '    ON DELETE CASCADE,' +
-            'playerOneId INTEGER, ' +
-            'INDEX pOneId (playerOneId),' +
-            'FOREIGN KEY (playerOneId)' +
-            '    REFERENCES player(playerId)' +
-            '    ON DELETE CASCADE,' +
-            'playerTwoId INTEGER, ' +
-            'INDEX pTwoId (playerTwoId),' +
-            'FOREIGN KEY (playerTwoId)' +
-            '    REFERENCES player(playerId)' +
-            '    ON DELETE CASCADE,' +
-            'winnerId INTEGER, ' +
-            'INDEX wId (winnerId),' +
-            'FOREIGN KEY (winnerId)' +
-            '    REFERENCES player(playerId)' +
-            '    ON DELETE CASCADE,' +
-            'replayId INTEGER, ' +
-            'INDEX rId (replayId),' +
-            'FOREIGN KEY (replayId)' +
-            '    REFERENCES replay(replayId)' +
-            '    ON DELETE CASCADE' +
-            ');');
 
         // stretch goal tables
         response = await pool.query('CREATE TABLE IF NOT EXISTS account (' +
@@ -294,13 +262,13 @@ async function initFakePlayerData() {
 }
 
 async function initFakeSeriesData() {
-    let statement = "INSERT INTO series (playerOneId, playerTwoId, seriesWinner, winCount)" +
-        " VALUES (?,?,?, ?);";
+    let statement = "INSERT INTO series (playerOneId, playerTwoId, seriesWinner, winCount, replayLink)" +
+        " VALUES (?,?,?,?, ?);";
     let data = [
-        ['1', '2', '2', 5],
-        ['2', '3', '3', 5],
-        ['4', '5', '4', 4],
-        ['1', '5', '1', 4]
+        ['1', '2', '2', 5, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_Bot+or+feed_Botology_1.txt'],
+        ['2', '3', '3', 5, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ariwoo_jjackso3_3.txt'],
+        ['4', '5', '4', 4, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ciaBOTta_Scrumpy+diddy_0.txt'],
+        ['1', '5', '1', 4, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ciaBOTta_Scrumpy+diddy_0.txt']
     ];
     try {
         for (let i = 0; i < data.length; i++) {
@@ -324,6 +292,8 @@ async function resetDb() {
         console.log(err);
     }
 }
+
+resetDb();
 
 // aws access info
 // const AWS = require('aws-sdk');

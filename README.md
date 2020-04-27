@@ -21,7 +21,6 @@ This is meant to be a webpage for Brown's CS1410 (Intro to AI) final project, th
   - [DONE] create series replay page
     - display replays on series page
     - style series page
-- [Peter] fix player catch all endpoint
 - Display match history on Player Profile page
 - Get EC2 storage working, so replays/scripts can be stored online
 - Make fake game/series data (or find a way to use data provided by Leon)

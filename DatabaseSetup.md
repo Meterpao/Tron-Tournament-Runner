@@ -4,7 +4,7 @@ We use AWS to host our data. We created a MySQL RDS instance to store the player
 
 Amazon RDS instance:
 
-Had to make the database available to the public. 
+Had to make the database available to the public.
 See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-database-from-my-machine>
 
 - Free Tier
@@ -14,16 +14,7 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
 - password: tronpassword
 - port: 3306
 
-## Tables and Schema 
-
-### Game
-
-- gameId[Integer][Primary Key]
-- playerOneId[Integer][Foreign Key][Required]
-- playerTwoId[Integer][Foreign Key][Required]
-- seriesId[Integer][Foreign Key][Required]
-- gameWinner[Integer] (must be FirstBotId or SecondBotId)
-- replayId[Integer]
+## Tables and Schema
 
 ### Series
 
@@ -31,7 +22,8 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
 - playerOneId[Integer][Foreign Key][Required]
 - playerTwoId[Integer][Foreign Key][Required]
 - seriesWinner[Integer][Required] (must be FirstBotId or SecondBotId)
-- winCOunt[Integer][Required] (must be b/w 3-5, since every series is best of 5)
+- winCount[Integer][Required] (must be b/w 3-5, since every series is best of 5)
+- replayLink[String]
 
 ### Player
 
@@ -45,11 +37,6 @@ See <https://stackoverflow.com/questions/37212945/aws-cant-connect-to-rds-databa
 
 Rank should be calculated upon loading, according to score.
 
-### Replay
-
-- replayId [Integer][Primary Key]
-- link [String][Required]
-
 ## STRETCH
 
 ### Account
@@ -62,6 +49,6 @@ Rank should be calculated upon loading, according to score.
 
 ### Script
 
- - ScriptId [Integer][Primary Key]
- - ScriptString [String][Required]
- - PlayerId [Integer][Foreign Key][Required]
+- ScriptId [Integer][Primary Key]
+- ScriptString [String][Required]
+- PlayerId [Integer][Foreign Key][Required]
