@@ -11,19 +11,23 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="username">						
+            <label for="username" class="sr-only">username</label>
+						<input id="username" type="text" class="form-control" placeholder="username">						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password">
+            <label for="password" class="sr-only">password</label>
+						<input type="password" class="form-control" placeholder="password" id="password">
 					</div>
 					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
+            <label for="rememberme" class="sr-only">rememberme</label>
+						<input type="checkbox" id="rememberme">Remember Me
 					</div>
 					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn">
+            <label for="submit" class="sr-only">submit</label>
+						<input type="submit" value="Login" class="btn float-right login_btn" id="submit">
 					</div>
 				</form>
 			</div>
@@ -172,10 +176,13 @@
     .page-footer{
     background-color: #343a40;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: #ff5722;
+    color: #f7f4f2;
     }
     .card-footer{
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    a{
+      color:#85d7f8;
     }
 </style>
 
