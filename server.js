@@ -282,18 +282,58 @@ async function initFakeSeriesData() {
     }
 }
 
+module.exports.testResetDb = async function testResetDb() {
+    let result = await resetDb();
+    return result;
+}
+
+module.exports.testQueryDb = async function testQueryDb() {
+    let result = await dbGetAllPlayers();
+    // fake data has 5 players
+    if (result.length !== 5) {
+        return false;
+    }
+
+    result = await dbGetPlayer('bot1');
+    // check for bot that does exist
+    if (result['playerId'] !== 1) {
+        return false;
+    }
+
+    result = await dbGetPlayer('madeupname');
+    // check for bot that does not exist
+    if (typeof result !== "undefined") {
+        return false;
+    }
+
+    result = await dbGetSeries('2');
+    // check for valid series id
+    if (result.length != 2) {
+        return false;
+    }
+
+    result = await dbGetSeries('10');
+    if (result.length != 0) {
+        return false
+    }
+    return true;
+}
+
 // drop tables, re-create, re-initialize with fake data
 async function resetDb() {
+    let success = false;
     try {
         let res = await createTables();
         res = await initFakeData();
         console.log("DB successfully reset.");
+        success = true;
     } catch (err) {
         console.log(err);
     }
+    return success;
 }
 
-resetDb();
+//resetDb();
 
 // aws access info
 // const AWS = require('aws-sdk');
