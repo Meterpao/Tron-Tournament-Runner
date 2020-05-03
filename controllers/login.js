@@ -6,7 +6,7 @@ const server = require('../server.js');
 
 function getLogin(request, response){
   // do any work you need to do, then
-  response.render('login', {title: 'login'});
+  response.render('login', {title: 'Login'});
 }
 
 module.exports = {

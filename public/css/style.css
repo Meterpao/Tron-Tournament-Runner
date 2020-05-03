@@ -5,6 +5,7 @@
   text-align: right;
 }
 
+
 .nav-links {
   align-self: center;
   font-size: 26px;
@@ -14,6 +15,14 @@
 }
 .nav-links:hover {
   color: #ff5722;
+}
+
+.enter-btn {
+  color: #ff5722;
+  font-size: 35px;
+  margin-top: 30px;
+  text-decoration: transparent;
+
 }
 
 .center {

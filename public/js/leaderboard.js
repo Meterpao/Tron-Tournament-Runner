@@ -1,4 +1,5 @@
-const defaultProfilePic = 'https://3.bp.blogspot.com/-s8716PPaDKc/XRwdPiIqNVI/AAAAAAAAByQ/vyRkEvA7Gj4obDQikDsS9tLrdYn37PvqgCLcBGAs/s1600/anon_tron_evolution.jpg';
+// const defaultProfilePic = 'https://3.bp.blogspot.com/-s8716PPaDKc/XRwdPiIqNVI/AAAAAAAAByQ/vyRkEvA7Gj4obDQikDsS9tLrdYn37PvqgCLcBGAs/s1600/anon_tron_evolution.jpg';
+const defaultProfilePic = 'userphoto.png';
 let leaderboard = document.getElementById('leaderboardBody');
 
 // fetch players from API endpoint

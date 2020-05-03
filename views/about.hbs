@@ -1,16 +1,35 @@
 <div id="container">
 <div id="info">
-    <div class="title">
-        What Is Tron-41 Tournament Runner?
+    <div>
+        <h1 class="title">About Tron-41 Tournament Runner</h1>
     </div>
     <div class="content">
         <div class="left">
+          <h2 class="question">What is Tron-41 Tournament Runner?</h2>
             TRON-41 is a two-player game played on a rectangular grid, in which players take turns moving in one of four directions (Up, Down, Left, and Right) and leave behind an impenetrable barrier in the position where they were.
         </div>
         <div class="right">
-            <img src="https://halite.io/assets/images/halite_iii.png" alt="just a image that looks nice" class="img">
+            {{!-- <img src="https://halite.io/assets/images/halite_iii.png" alt="just a image that looks nice" class="img"> --}}
+            <img src="https://media0.giphy.com/media/RJlYQvBklQesg/source.gif" alt="tron legacy gif" class="img">
+
         </div>
     </div>
+</div>
+
+<div class="content">
+  <div class="left">
+    <img src="https://media0.giphy.com/media/RJlYQvBklQesg/source.gif" alt="tron legacy gif" class="img">
+  </div>
+  <div class="right">
+    <p class="question">How can I get started?</p>
+    <a id="info-link" href="https://cs.brown.edu/courses/csci1410/assignments/tron.pdf">You can read this document on how to write your own script. </a>You can pick any programming language you like.
+
+
+  </div>
+
+</div>
+<div>
+  <a class="enter-btn" href="/login">get started!</a>
 </div>
 <div id="involve">
     <div class="title">
@@ -110,48 +129,79 @@
 </footer>
 <style>
     #container{
-        margin-top: 100px;
         display: flex;
         flex-direction: column;
-        height: 600px;
+        /*height: 600px;*/
         text-align: center;
         font-family: 'VT323', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         color: #ff5722;
+        color: rgb(255, 40, 10);
+        /*background-color: black;*/
     }
     #info{
-        height: 300px;
         display: flex;
         flex-direction: column;
+    }
+    .question {
+      font-size: 2.5vw;
+      color: #ff5722;
+      color: #39F3FF;
+      text-decoration:line-through;
+      text-decoration: underline dashed;
+    }
+    #info-link {
+      color: #e6704d;
+    }
+    #info-link:hover {
+      color: #FF5722;
+              color: rgb(255, 40, 10);
+
+    }
+    .enter-btn:hover {
+      color: white;
+              {{!-- color: rgb(255, 40, 10); --}}
+
     }
     #involve{
         height: 300px;
     }
     .title{
-        height: 100px;
-        font-size: 3vw;
+        /*margin-top: 50px;*/
+        line-height: 100px;
+        font-size: 3.2vw;
         text-decoration: underline;
     }
     .content{
-        height: 200px;
+        /*height: 200px; */
         font-size: medium;
         display: flex;
         flex-direction: row;
         font-size: 1.5vw;
         color: #ff5722;
+        padding-top: 50px;
+        /* background-image: url('https://media0.giphy.com/media/RJlYQvBklQesg/source.gif'); */
+
+                
+
     }
     .left{
         height: 200px;
         width: 50%;
         color: aliceblue;
+        text-align: left;
+        padding-left: 4vw;
     }
     .right{
         height: 200px;
         width: 50%;
         color: aliceblue;
+        text-align: right;
+        padding-right: 4vw;
     }
     .img{
         max-height: 100%;
         max-width: 100%;
+        opacity: 65%;
     }
     a{
       color:#85d7f8;

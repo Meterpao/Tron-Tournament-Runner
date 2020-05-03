@@ -1,9 +1,13 @@
 
 <div id="container">
     <div id="logo">
-        <p class="h1">Tron Tournament Runner</p>
-        <p class="h1">CSCI1410@Brown University</p>
+        <h1>Tron Tournament Runner</h1>
+        <h2>CSCI1410@Brown University</h2>
+      <div>
+      <a class="enter-btn" href="/about">enter</a>
+      </div>
     </div>
+
     <div id="csci1320">
         {{!-- <img src="https://wallpaperaccess.com/full/97643.jpg" alt="extraterrestrial" class="img"> --}}
         <img src="homelogo.png" alt="Home Logo" class="img">
@@ -101,22 +105,24 @@
         flex-direction: row;
         text-align: center;
         align-content: center;
-        line-height: 100px;
         margin-top: 200px;
     }
     #logo{
         width: 50%;
         font-family: 'VT323', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         color: #ff5722;
+        color: #39F3FF;
         font-weight: bolder;
         text-decoration: underline;
     }
+
+
     #csci1320{
         width: 50%;
+        align-self: flex-start;
     }
     .img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 15vw;
     }
     .list-unstyled{
         color: royalblue;
