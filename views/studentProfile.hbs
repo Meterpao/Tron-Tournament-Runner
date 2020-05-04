@@ -1,11 +1,15 @@
 <title>Student Profile</title>
 
 
+<div>
+<a id="back-btn" class="btn btn-outline-light" href="/leaderboard" role="button">←　Back to Leaderboard</a>
 
+</div>
 <div id="botNum">
-<h1 class="center"> {{botName}} </h1>
+<h1 id="botName" class="center"> {{botName}} </h1>
 </div>
 <div id="playerIdDiv" style="display: none"> {{playerId}}</div>
+<div id="profileStats">
 <div id="playerInfo">
     <p>Player id: {{playerId}}</p>
     <p>Partner 1: {{partner1}}</p>
@@ -14,9 +18,10 @@
     <p>ELO: {{elo}}</p>
     <p>Score: {{score}}</p>
 </div>
-<div id="matchHistory">
+<div id="matchHistories">
     <p>Match History:</p>
     <ul id="matchHistory"></ul>
+</div>
 </div>
 <style>
     body{
@@ -25,9 +30,6 @@
         font-family: 'VT323', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         background-image: url('https://4.bp.blogspot.com/-BweIufIseaQ/T77OxbauWeI/AAAAAAABIlA/iqqcL7P0DgA/s1600/TRON_UPRISING_MIELGO.jpg');
     }
-    #matchHistory:hover{
-        cursor: pointer;
-    }
     h1{
         font-size: 8vw;
         font-weight: bolder;
@@ -35,12 +37,35 @@
     p{
         font-size: 2.5vw;
     }
+
+    #back-btn {
+        color: white;
+        background-color:rgba(223, 217, 215, 0.25);
+        float: left;
+        margin: 5%;
+        vertical-align: center;
+        font-size: large;
+    }
+    #matchHistory {
+        color: #ff5722;
+
+    }
+    #matchHistory:hover{
+        cursor: pointer;
+    }
+    #profileStats {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-top: 5%;
+    }
+
     #botNum{
         width: 50%;
         margin-left: 25%;
         height: 100px;
         margin-top: 30px;
-        border: 3px dashed #eea4ed;
+        color: #ff5722;
     }
     .center{
         text-align: center;
@@ -48,21 +73,30 @@
         line-height: 100px;
     }
     #playerInfo{
-        margin-top: 40px;
+        /*
         width: 70%;
-        margin-left: 15%;
-        border: 3px dashed #eea4ed;
+        margin-left: 15%;*/
+        flex: 2;
+        border: 3px dashed #ff5722;
         text-align: center;
         height: auto;
         vertical-align: middle;
+        background: rgba(0, 0, 0, 0.7);
+        margin: 2vw;
+
+
     }
-    #matchHistory{
-        margin-top: 40px;
+    #matchHistories{
         height: auto;
-        width: 50%;
-        margin-left: 25%;
-        border: 3px dashed #eea4ed;
+       /*width: 50%;
+        margin-left: 25%; */
+        flex: 1;
+        /*border: 3px dashed #eea4ed;*/
+        border: 3px dashed #ff5722;
         text-align: center;
+        background: rgba(0, 0, 0, 0.7);
+        font-size: 5vh;
+        margin: 2vw;
     }
 </style>
 

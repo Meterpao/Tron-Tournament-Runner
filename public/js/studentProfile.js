@@ -1,11 +1,14 @@
 let playerIdDiv = document.getElementById('playerIdDiv');
 let playerId = playerIdDiv.innerHTML; 
 let matchHistory = document.getElementById('matchHistory');
+window.document.title = document.getElementById('botName').innerText + "'s Stats";
+
 
 // fetch series from API endpoint
 async function fetchSeries() {
     let res = await fetch('../getSeriesData/' + playerId);
     return res.json();
+
 }
 
 async function fetchPlayers() {
@@ -56,5 +59,4 @@ async function initSeriesList() {
         matchHistory.appendChild(li);
     }
 }
-
 window.onload = initSeriesList;

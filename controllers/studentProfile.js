@@ -6,7 +6,7 @@ const server = require('../server.js');
 
 function getProfile(request, response){
   // do any work you need to do, then
-  response.render('studentProfile', {title: 'profile'});
+  response.render('studentProfile', {title: 'Profile'});
 }
 
 module.exports = {
