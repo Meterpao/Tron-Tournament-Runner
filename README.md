@@ -15,15 +15,17 @@ This is meant to be a webpage for Brown's CS1410 (Intro to AI) final project, th
 - [DONE] Create Student Profile template page
 - [DONE] Link players on Leaderboard page to player profile pages
 - [DONE] Create Account/Login Page
-- Make current site and styling look more like the prototype
+- [DONE] Make current site and styling look more like the prototype
 - Make player profile page look nice
   - [DONE] display series on player page (each series is a clickable link)
   - [DONE] create series replay page
     - display replays on series page
     - style series page
-- Display match history on Player Profile page
-- Get EC2 storage working, so replays/scripts can be stored online
-- Make fake game/series data (or find a way to use data provided by Leon)
+- [DONE] Display match history on Player Profile page
+- [DONE] Get EC2 storage working, so replays/scripts can be stored online
+- [DONE] Make fake game/series data (or find a way to use data provided by Leon)
+- Display replays
+- Make series page look nice
 - Figure out how to get server to upload and run python scripts
 - figure out how to get tournament results
 - Figure out how we're going to support accounts/login

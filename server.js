@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const hbs = require('express-handlebars');
 const path = require('path');
+const fetch = require("node-fetch");
 
 // import handlers
 const homeHandler = require('./controllers/home.js');
@@ -35,7 +36,7 @@ app.get('/about', aboutHandler.getAbout);
 app.get('/login', loginHandler.getLogin);
 app.get('/leaderboard', leaderboardHandler.getLeaderboard);
 app.get('/getPlayers', getPlayers);
-app.get('/getSeriesData/:seriesId', getSeriesData);
+app.get('/getSeriesData/:playerId', getSeriesData);
 app.get('/series/:seriesId', renderSeriesPage);
 app.get('/player/:player', renderPlayerPage);
 
@@ -71,23 +72,139 @@ async function renderPlayerPage(request, response) {
 
 async function renderSeriesPage(request, response) {
     let seriesId = request.params.seriesId;
-    // TODO
-    // get games from series
-    // get replays for each game
+    let seriesData = await dbGetSeriesWithSeriesId(seriesId);
 
-    if (true) {
-        // TODO render page properly
-        response.render('series', { 
-            seriesId: seriesId
+    // if there is valid series data...
+    if (typeof seriesData !== 'undefined') {
+        // TODO: should check these to make sure they're not undefined
+        let playerOne = await dbGetPlayerName(seriesData['playerOneId']);
+        let playerTwo = await dbGetPlayerName(seriesData['playerTwoId']);
+        let firstPlayerWon = seriesData['playerOneId'] === seriesData['seriesWinner'];
+        let replayLink = seriesData['replayLink'];
+        fetch(replayLink).then(function(response) {
+            return response.text()
+        }).then(function(text) {
+            let player1 = playerOne['botName'];
+            let player2 = playerTwo['botName'];
+            let tronResult = seriesTextToReplay(text, player1, player2);
+            response.render('series', { 
+                board: tronResult,
+                seriesId: seriesId,
+                winCount: seriesData['winCount'],
+                lossCount: (5 - parseInt(seriesData['winCount'])),
+                playerOne: player1,
+                playerTwo: player2,
+                winner: firstPlayerWon
+            });
         });
     } else {
         response.status(404).send('Cannot render series of id: ' + seriesId);
     }
 }
 
+// given the text parsed version of a series,
+// converts it to html of the replay
+function seriesTextToReplay(text, player1, player2) {
+    let tronResults = "";
+    let data = JSON.parse(text);
+    let boardIndex = 0;
+
+    for (let i = 0; i < data.length; i++) {
+        game = data[i];
+        d1 = game[0];
+        d2 = game[1];
+        tronResults += "<div class='game-wrapper'>"
+        tronResults += "<div class='game'>"
+        let firstTurn = true;
+        let flip = false;
+        for (let j = 0; j < d1.length; j++) {
+            d3 = d1[j];
+            d4 = d2[j];
+            if (firstTurn) {
+                if (d3.includes("x")) {
+                    flip = true;
+                }
+                firstturn = false;
+            }
+            if (flip) {
+                tronResults += boardToHTML(d3)
+                tronResults += boardToHTML(d4)
+            } else {
+                tronResults += boardToHTML(d4)
+                tronResults += boardToHTML(d3)
+            }
+        }
+        tronResults += "</div><button class='restart' title='Click to restart' onclick='restart(" + boardIndex + ")'>R</button>";
+        if (d1.length === d2.length) {
+            if (flip) {
+                tronResults += "<p>Winner: Player 2 (" + player2 + ")</p>"
+            } else {
+                tronResults += "<p>Winner: Player 1 (" + player1 + ")</p>"
+            }
+        } else {
+            if (flip) {
+                tronResults += "<p>Winner: Player 1 (" + player1 + ")</p>"
+            } else {
+                tronResults += "<p>Winner: Player 2 (" + player2 + ")</p>"
+            }
+        }
+        tronResults += "</div>";
+        boardIndex += 1;
+    }
+
+    return tronResults;
+}
+
+// given a string representation of the board,
+// returns an HTML representation of the board
+function boardToHTML(board) {
+    let b = "<div class='board-wrapper'><div class='board'>";
+    let start = false;
+    for (let i = 0; i < b.length; i++) {
+        let char = board.charAt(i);
+        if (char === "#" && !start) {
+            start = true;
+        }
+        if (!start) {
+            continue;
+        }
+
+        if (char === " ") {
+            b += "<span class='space'></span>"
+        }
+        if (char === "#") {
+            b += "<span class='wall'></span>"
+        }
+        if (char === "x") {
+            b += "<span class='barrier'></span>"
+        }
+        if (char === "1") {
+            b += "<span class='player1'><p>1</p></span>"
+        }
+        if (char === "2") {
+            b += "<span class='player2'><p>2</p></span>"
+        }
+        if (char === "*") {
+            b += "<span class='trap'><p>*</p></span>"
+        }
+        if (char === "@") {
+            b += "<span class='armor'><p>@</p></span>"
+        }
+        if (char === "^") {
+            b += "<span class='speed'><p>^</p></span>"
+        }
+        if (char === "!") {
+            b += "<span class='bomb'><p>!</p></span>"
+        }
+        }
+
+    b += "</div></div>"
+    return b
+}
+
 async function getSeriesData(request, response) {
-    let seriesId = request.params.seriesId;
-    let seriesData = await dbGetSeries(seriesId);
+    let playerId = request.params.playerId;
+    let seriesData = await dbGetSeriesWithPlayerId(playerId);
     response.json(seriesData);
 }
 
@@ -158,8 +275,33 @@ async function dbGetPlayer(botName) {
     return result;
 }
 
+async function dbGetPlayerName(playerId) {
+    let result;
+    try {
+        let statement = 'SELECT botName FROM player WHERE playerId = ?;';
+        response = await pool.query(statement, [playerId]);
+        result = response[0][0];
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+}
+
+// given a series id, get that series
+async function dbGetSeriesWithSeriesId(seriesId) {
+    let result;
+    try {
+        let statement = 'SELECT * FROM series WHERE seriesId = ?;';
+        response = await pool.query(statement, [seriesId]);
+        result = response[0][0];
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
+}
+
 // given a player id, get all the series that player has played in
-async function dbGetSeries(playerId) {
+async function dbGetSeriesWithPlayerId(playerId) {
     let result;
     try {
         let statement = 'SELECT * FROM series WHERE playerOneId = ? OR playerTwoId = ?;';
@@ -306,13 +448,13 @@ module.exports.testQueryDb = async function testQueryDb() {
         return false;
     }
 
-    result = await dbGetSeries('2');
+    result = await dbGetSeriesWithPlayerId('2');
     // check for valid series id
     if (result.length != 2) {
         return false;
     }
 
-    result = await dbGetSeries('10');
+    result = await dbGetSeriesWithPlayerId('10');
     if (result.length != 0) {
         return false
     }
@@ -338,8 +480,7 @@ async function resetDb() {
 // aws access info
 // const AWS = require('aws-sdk');
 // const fs = require('fs');
-// const aws_access_key_id = 'ASIAXANMLBZCDMCPITEX';
-// const aws_secret_access_key = 'LV5JF63UxTlLBBHb4gQOn+3J+3VrrEsnnA+UOkhE';
+
 // //configuring the AWS environment
 // AWS.config.update({
 //     accessKeyId: aws_access_key_id,
