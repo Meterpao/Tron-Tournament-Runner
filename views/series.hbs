@@ -8,16 +8,19 @@
     </div>
 
     <div id="container">
-        <p>
-            <span>{{playerOne}}  v. {{playerTwo}} </span>
-        </p>
-        <p>
-            <span> {{ winCount }} : {{ lossCount }}</span>
-        </p>
-    </div>
+        <div id="replayDetails">
+        <h1>
+            <span class="p1">{{playerOne}}</span>  v. <span class="p2">{{playerTwo}} </span>
+        </h1>
+        <h2>
+            <span class="p1"> {{ winCount }} </span>: <span class="p2">{{ lossCount }}</spanclass="p1">
+        </h2>
+        </div>
     <div id="replay">
         {{{board}}}
     </div>
+        </div>
+
 </body>
 <style>
 @font-face {
@@ -35,7 +38,6 @@ body {
     color: white;
     font-family: 'Andale Mono';
     text-align: center;
-    padding: 70px 0;
 }
 
 
@@ -46,10 +48,10 @@ header {
 
 h1 {
     color: #E06800;
-    font-family: 'Atari Classic Chunky';
+    font-family: 'VT323','Atari Classic Chunky';
     font-size: 64px;
-    margin-bottom: 35px;
-    text-transform: uppercase;
+    margin-bottom: 15px;
+    /*text-transform: uppercase;*/
 }
 
 h4 {
@@ -81,11 +83,13 @@ a:hover {
 
 .p1 {
     color: #BAD650;
+    color:rgb(32, 206, 230);
     font-weight: bold;
 }
 
 .p2 {
-    color: #FFB938;
+    color: #FFB938;        
+    color: #ff5722;
     font-weight: bold;
 }
 
@@ -185,6 +189,21 @@ a:hover {
     width: 40vw;
     height: auto;
     margin-bottom: 2000px;
+}
+
+#container {
+    text-align: center;
+
+}
+
+#replayDetails {
+    width: 75%;
+    border-bottom: 1.5px solid rgb(32, 206, 230);
+    border-bottom: 1.5px dashed white;
+    margin: 0 auto 3% auto;
+
+
+
 }
 
 {{!-- body{

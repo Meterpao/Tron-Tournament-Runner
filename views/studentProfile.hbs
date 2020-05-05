@@ -1,26 +1,51 @@
 <title>Student Profile</title>
 
 
-<div>
-<a id="back-btn" class="btn btn-outline-light" href="/leaderboard" role="button">←　Back to Leaderboard</a>
-
-</div>
+{{!-- <div>
+    <a id="back-btn" class="btn btn-outline-light" href="/leaderboard" role="button">←　Back to Leaderboard</a>
+</div> --}}
+<div id="container">
 <div id="botNum">
-<h1 id="botName" class="center"> {{botName}} </h1>
+    <a id="back-btn" class="btn btn-outline-light" href="/leaderboard" role="button">←　Back to Leaderboard</a>
+
+{{!-- <h1 class="center"> {{botName}} </h1> --}}
 </div>
 <div id="playerIdDiv" style="display: none"> {{playerId}}</div>
 <div id="profileStats">
-<div id="playerInfo">
-    <p>Player id: {{playerId}}</p>
-    <p>Partner 1: {{partner1}}</p>
-    <p>Partner 2: {{partner2}}</p>
-    <p>Partner 3: {{partner3}}</p>
-    <p>ELO: {{elo}}</p>
-    <p>Score: {{score}}</p>
-</div>
-<div id="matchHistories">
-    <p>Match History:</p>
-    <ul id="matchHistory"></ul>
+    <div id="profileLeft" class="m-4">
+        {{!-- <img src="homelogo.png" alt="Home Logo" class="img"> --}}
+        <h2 id="botName" class="center" style="color:#39F3FF"> {{botName}} </h2>
+        <p>Player id: {{playerId}}</p>
+        <p>ELO: {{elo}}</p>
+        <p>Score: {{score}}</p>
+        <p>Total Matches: '{{totalMatches}}'</p>
+    </div>
+    <div id="profileRight">
+        <div id="playerInfo" class="m-4">
+        {{!-- <p>Player id: {{playerId}}</p> --}}
+        <div class="statDetails">
+            <p style="text-decoration: underline;">Partner 1: </p>
+            <p>{{partner1}}</p>
+        </div>
+        <div class="statDetails">
+            <p style="text-decoration: underline;">Partner 2: </p>
+            <p>{{partner2}}</p>
+        </div>
+        <div class="statDetails">
+            <p style="text-decoration: underline;">Partner 3: </p>
+            <p>{{partner3}}</p>
+        </div>
+        {{!-- <p>Partner 1: {{partner1}}</p>
+        <p>Partner 2: {{partner2}}</p>
+        <p>Partner 3: {{partner3}}</p>
+        <p>ELO: {{elo}}</p>
+        <p>Score: {{score}}</p> --}}
+        </div>
+        <div id="matchHistories" class="m-4">
+            <p>Match History:</p>
+            <ul id="matchHistory"></ul>
+        </div>
+    </div>
 </div>
 </div>
 <style>
@@ -28,26 +53,40 @@
         color: #dfd9d7;
         box-sizing: border-box;
         font-family: 'VT323', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        background-image: url('https://4.bp.blogspot.com/-BweIufIseaQ/T77OxbauWeI/AAAAAAABIlA/iqqcL7P0DgA/s1600/TRON_UPRISING_MIELGO.jpg');
+        /*background-image: url('https://4.bp.blogspot.com/-BweIufIseaQ/T77OxbauWeI/AAAAAAABIlA/iqqcL7P0DgA/s1600/TRON_UPRISING_MIELGO.jpg');*/
     }
     h1{
         font-size: 8vw;
         font-weight: bolder;
     }
+
+    h2 {
+        font-size: 4vw;
+    }
     p{
         font-size: 2.5vw;
+    }
+
+    img {
+        min-width: 200px;
+    }
+
+    #container {
+        display:flex;
+        flex-direction: column;
     }
 
     #back-btn {
         color: white;
         background-color:rgba(223, 217, 215, 0.25);
         float: left;
-        margin: 5%;
+        margin: 3%;
         vertical-align: center;
         font-size: large;
     }
     #matchHistory {
         color: #ff5722;
+        list-style-type: none;
 
     }
     #matchHistory:hover{
@@ -57,32 +96,55 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        margin-top: 5%;
+        margin-top: 2.5%;
+
     }
 
     #botNum{
-        width: 50%;
-        margin-left: 25%;
-        height: 100px;
+        /*width: 50%;        
         margin-top: 30px;
+        margin-left: 25%;*/
         color: #ff5722;
+        color: #39F3FF;
+
     }
     .center{
         text-align: center;
         vertical-align: middle;
         line-height: 100px;
     }
+    #profileLeft {
+        flex: 1;
+        border: 1px solid white;
+        text-align: center;
+        height: fit-content;
+        font-size: 3vh;
+    }
+
+    #profileRight{
+        display: flex;
+        flex-direction: column;
+        flex: 2;
+    }
+
+    .statDetails {
+        margin: 20px;
+    }
+
     #playerInfo{
         /*
         width: 70%;
-        margin-left: 15%;*/
-        flex: 2;
+        margin-left: 15%;
+        flex: 2;*/
+        display: flex;
+        flex-direction: row;
         border: 3px dashed #ff5722;
         text-align: center;
         height: auto;
         vertical-align: middle;
         background: rgba(0, 0, 0, 0.7);
-        margin: 2vw;
+        justify-content: center;
+
 
 
     }
@@ -96,7 +158,8 @@
         text-align: center;
         background: rgba(0, 0, 0, 0.7);
         font-size: 5vh;
-        margin: 2vw;
+        height:fit-content;
+
     }
 </style>
 
