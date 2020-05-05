@@ -1,3 +1,4 @@
+require('mysql2/node_modules/iconv-lite').encodingExists('foo');
 const server = require ('./../server.js');
 
 test('reset database', () => {
