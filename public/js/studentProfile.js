@@ -44,6 +44,7 @@ async function initSeriesList() {
         let winCount = series['winCount'];
         // check if first player won
         let winnerFirst = series['seriesWinner'] === series['playerOneId'];
+        console.log(winnerFirst);
         let seriesString = playerOne + " v. " + playerTwo + " ";
         seriesString += winnerFirst ? "(" + winCount + ":" + (5-winCount) + ")" : "(" + (5-winCount) + ":" + winCount + ")";
         li.innerHTML = seriesString;

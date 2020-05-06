@@ -387,9 +387,9 @@ async function initFakePlayerData() {
     let fakePlayerData = [
         ['bot1', 'me', 'you', 1000, '10'],
         ['bot2', 'bob', 'john', 2000, '20'],
-        ['bot3', 'sam', 'carla', 0, '0.5'],
+        ['bot3', 'sam', 'carla', 300, '6.34'],
         ['bot4', 'alex', 'julia', 1542.2, '16.5'],
-        ['bot5', '@@@', '$$$$', 10, '1.0'],
+        ['bot5', '@@@', '$$$$', 100, '2.0'],
     ];
     try {
         for (let i = 0; i < fakePlayerData.length; i++) {
@@ -407,10 +407,10 @@ async function initFakeSeriesData() {
     let statement = "INSERT INTO series (playerOneId, playerTwoId, seriesWinner, winCount, replayLink)" +
         " VALUES (?,?,?,?, ?);";
     let data = [
-        ['1', '2', '2', 5, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_Bot+or+feed_Botology_1.txt'],
-        ['2', '3', '3', 5, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ariwoo_jjackso3_3.txt'],
-        ['4', '5', '4', 4, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ciaBOTta_Scrumpy+diddy_0.txt'],
-        ['1', '5', '1', 4, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ciaBOTta_Scrumpy+diddy_0.txt']
+        ['1', '2', '2', 4, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_Bot+or+feed_Botology_1.txt'],
+        ['3', '2', '2', 3, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ariwoo_jjackso3_3.txt'],
+        ['5', '4', '4', 4, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ciaBOTta_Scrumpy+diddy_0.txt'],
+        ['5', '1', '1', 4, 'https://tron-gamerunner.s3.amazonaws.com/Round_1_of_120_ciaBOTta_Scrumpy+diddy_0.txt']
     ];
     try {
         for (let i = 0; i < data.length; i++) {
@@ -476,27 +476,3 @@ async function resetDb() {
 }
 
 //resetDb();
-
-// aws access info
-// const AWS = require('aws-sdk');
-// const fs = require('fs');
-
-// //configuring the AWS environment
-// AWS.config.update({
-//     accessKeyId: aws_access_key_id,
-//     secretAccessKey: aws_secret_access_key
-// });
-
-// Set the region 
-// AWS.config.update({region: 'us-east-1'});
-// // Create S3 service object
-// s3 = new AWS.S3({ apiVersion: '2006-03-01' });
-// // Call S3 to list the buckets
-// s3.listBuckets(function (err, data) {
-//     if (err) {
-//         console.log("Error", err);
-//     } else {
-//         console.log("listing buckets...");
-//         console.log("Success", data.Buckets);
-//     }
-// });

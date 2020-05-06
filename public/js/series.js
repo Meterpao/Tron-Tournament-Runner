@@ -4,6 +4,14 @@ let playerTwo = document.getElementById('playerTwoDiv').innerHTML;
 let firstPlayerWin = document.getElementById('winnerDiv').innerHTML;
 let winCount = document.getElementById('winCountDiv').innerHTML;
 
+if (firstPlayerWin === 'true') {
+  document.getElementById('playerOneNumWins').innerHTML = winCount;
+  document.getElementById('playerTwoNumWins').innerHTML = 5 - winCount;  
+} else {
+  document.getElementById('playerTwoNumWins').innerHTML = winCount;
+  document.getElementById('playerOneNumWins').innerHTML = 5 - winCount;  
+}
+
 const containers = document.getElementsByClassName("game");
 let games = [];
 let gamesCurrIndex = [];
