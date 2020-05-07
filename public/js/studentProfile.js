@@ -47,7 +47,18 @@ async function initSeriesList() {
         console.log(winnerFirst);
         let seriesString = playerOne + " v. " + playerTwo + " ";
         seriesString += winnerFirst ? "(" + winCount + ":" + (5-winCount) + ")" : "(" + (5-winCount) + ":" + winCount + ")";
-        li.innerHTML = seriesString;
+
+        let spaceBetween = document.createElement('p');
+        spaceBetween.innerHTML = "&nbsp;&nbsp"
+        let replayString = document.createElement('p');
+        replayString.innerHTML = " <span style='color: #ff5722; border-bottom: 1px solid #ff5722'>" + "MATCH REPLAY" +"</span>";
+        // replayString = "    MATCH REPLAY";
+
+        // li.setAttribute('border', '3px dashed #ff5722');
+        li.innerHTML = seriesString + spaceBetween.innerHTML + replayString.innerHTML;
+
+
+
 
         //set row as clickable link to player profile
         li.setAttribute('class', 'clickable');
@@ -59,5 +70,6 @@ async function initSeriesList() {
         // append to table
         matchHistory.appendChild(li);
     }
+    
 }
 window.onload = initSeriesList;

@@ -1,9 +1,5 @@
 <title>Student Profile</title>
 
-
-{{!-- <div>
-    <a id="back-btn" class="btn btn-outline-light" href="/leaderboard" role="button">←　Back to Leaderboard</a>
-</div> --}}
 <div id="container">
 <div id="botNum">
     <a id="back-btn" class="btn btn-outline-light" href="/leaderboard" role="button">←　Back to Leaderboard</a>
@@ -13,7 +9,7 @@
 <div id="playerIdDiv" style="display: none"> {{playerId}}</div>
 <div id="profileStats">
     <div id="profileLeft" class="m-4">
-        {{!-- <img src="homelogo.png" alt="Home Logo" class="img"> --}}
+        {{!-- <img src="homelogo.png" alt="Bot Team Icon" class="img"> --}}
         <h2 id="botName" class="center" style="color:#39F3FF"> {{botName}} </h2>
         <p>Player id: {{playerId}}</p>
         <p>ELO: {{elo}}</p>
@@ -31,10 +27,18 @@
             <p style="text-decoration: underline;">Partner 2: </p>
             <p>{{partner2}}</p>
         </div>
-        <div class="statDetails">
+        {{!-- <div class="statDetails" id="partner3div" style="visibility: collapse;">
             <p style="text-decoration: underline;">Partner 3: </p>
             <p>{{partner3}}</p>
+        </div> --}}
+        {{!-- <div class="statDetails" >
+            <p style="text-decoration: underline;">ELO: </p>
+            <p>{{elo}}</p>
         </div>
+        <div class="statDetails">
+            <p style="text-decoration: underline;">Score: </p>
+            <p>{{score}}</p>
+        </div> --}}
         {{!-- <p>Partner 1: {{partner1}}</p>
         <p>Partner 2: {{partner2}}</p>
         <p>Partner 3: {{partner3}}</p>
@@ -42,7 +46,7 @@
         <p>Score: {{score}}</p> --}}
         </div>
         <div id="matchHistories" class="m-4">
-            <p>Match History:</p>
+            <p>MATCH HISTORY:</p>
             <ul id="matchHistory"></ul>
         </div>
     </div>
@@ -85,12 +89,13 @@
         font-size: large;
     }
     #matchHistory {
-        color: #ff5722;
         list-style-type: none;
+        text-align: center;
 
     }
     #matchHistory:hover{
         cursor: pointer;
+        color: white;
     }
     #profileStats {
         display: flex;
@@ -143,9 +148,8 @@
         height: auto;
         vertical-align: middle;
         background: rgba(0, 0, 0, 0.7);
-        justify-content: center;
-
-
+        justify-content: space-around;
+        
 
     }
     #matchHistories{
@@ -155,12 +159,32 @@
         flex: 1;
         /*border: 3px dashed #eea4ed;*/
         border: 3px dashed #ff5722;
-        text-align: center;
+        text-align: left;
         background: rgba(0, 0, 0, 0.7);
         font-size: 5vh;
         height:fit-content;
+        padding: 2%;
 
     }
-</style>
+    
+    .img {
+        width: 5vw;
+    }
 
+    .replayLink {
+        color: #ff5722;
+    }
+    .replayLink:hover {
+        color: white;
+    }
+
+
+
+</style>
+<script>
+    console.log(partner3);
+    if (partner3 !== false) {
+        document.getElementById("partner3div").style.visibility = "visible";
+    }
+</script>
 <script src="/js/studentProfile.js"></script>
