@@ -4,6 +4,14 @@
 
 This is meant to be a webpage for Brown's CS1410 (Intro to AI) final project, the Tron Tournament. The webpage is meant to make the tournament more fun and accessible for students in the class with an interactive leaderboard, match replays, and more information about the tournament.
 
+## How to Run
+
+After pulling repo:
+
+- cd into 'Tron-Tournament-Runner' directory
+- 'npm install'
+- 'npm start run'
+
 ## TODO (in rough priority)
 
 - [DONE] Set up express routing for different pages
