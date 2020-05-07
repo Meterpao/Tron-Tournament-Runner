@@ -49,11 +49,9 @@ async function initSeriesList() {
         let playerOne = playerDict[series['playerOneId']];
         let playerTwo = playerDict[series['playerTwoId']];
         let winCount = series['winCount'];
-        totalWins += winCount;
         // check if first player won
         let thisIsPlayerOne = series['playerOneId'] === parseInt(playerId);
         let thisPlayerWon = series['seriesWinner'] === parseInt(playerId);
-        console.log(thisPlayerWon);
         let matchupString = thisIsPlayerOne ? playerOne + " vs " + playerTwo + " " : playerTwo + " vs " + playerOne+ " ";
         let winString = thisPlayerWon ? "WIN" : "LOSS";
         let winLossString = thisPlayerWon ? winCount + " - " + (5-winCount) : (5-winCount) + " - " + winCount;
@@ -73,9 +71,6 @@ async function initSeriesList() {
         li.innerHTML = matchString  + winString +  winLossString;
         li.setAttribute('id', 'match');
 
-
-
-
         //set row as clickable link to player profile
         li.setAttribute('class', 'clickable');
         li.addEventListener("click", async function(event) {
@@ -84,14 +79,13 @@ async function initSeriesList() {
         })
 
         // append to table
-        totalLosses = (totalMatches * 5) - totalWins;
-        // console.log(totalWins);
-        // console.log(totalLosses);
-        document.getElementById('totalWins').innerHTML =  totalWins;
-        document.getElementById('totalLosses').innerHTML =  totalLosses;
-
+        totalWins += thisPlayerWon ? winCount : 5 - winCount;        
         matchHistory.appendChild(li);
     }
 
+    totalLosses = (totalMatches * 5) - totalWins;
+    document.getElementById('totalWins').innerHTML =  totalWins;
+    document.getElementById('totalLosses').innerHTML =  totalLosses;
 }
+
 window.onload = initSeriesList;
