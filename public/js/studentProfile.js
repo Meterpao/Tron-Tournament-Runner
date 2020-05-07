@@ -47,10 +47,17 @@ async function initSeriesList() {
         let playerTwo = playerDict[series['playerTwoId']];
         let winCount = series['winCount'];
         // check if first player won
-        let winnerFirst = series['seriesWinner'] === series['playerOneId'];
-        console.log(winnerFirst);
-        let seriesString = playerOne + " v. " + playerTwo + " ";
-        seriesString += winnerFirst ? "(" + winCount + ":" + (5-winCount) + ")" : "(" + (5-winCount) + ":" + winCount + ")";
+        let thisIsPlayerOne = series['playerOneId'] === parseInt(playerId);
+        let thisPlayerWon = series['seriesWinner'] === parseInt(playerId);
+        console.log(thisPlayerWon);
+        let matchupString = thisIsPlayerOne ? playerOne + " vs " + playerTwo + " " : playerTwo + " vs " + playerOne+ " ";
+        let winString = thisPlayerWon ? "WIN" : "LOSS";
+        let winLossString = thisPlayerWon ? winCount + " - " + (5-winCount) : (5-winCount) + " - " + winCount;
+
+        matchString = "<span style=\"color: #FF5722\">" + matchupString + "</span>";
+        let winColor = thisPlayerWon ? "style=\"color: #FF5722\"" : "style=\"color: white\"";
+        winString = "<span " + winColor +  " >" + winString + "</span>";
+        winLossString = "<span style=\"color: #FF5722\">" + winLossString + "</span>";
 
         let spaceBetween = document.createElement('p');
         spaceBetween.innerHTML = "&nbsp;&nbsp"
@@ -59,7 +66,7 @@ async function initSeriesList() {
         // replayString = "    MATCH REPLAY";
 
         // li.setAttribute('border', '3px dashed #ff5722');
-        li.innerHTML = seriesString + spaceBetween.innerHTML + replayString.innerHTML;
+        li.innerHTML = matchString  + winString +  winLossString;
         li.setAttribute('id', 'match');
 
 

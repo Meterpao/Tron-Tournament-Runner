@@ -20,11 +20,11 @@
         <div id="playerInfo" class="m-4">
         {{!-- <p>Player id: {{playerId}}</p> --}}
         <div class="statDetails">
-            <p style="text-decoration: underline;">Partner 1: </p>
+            <p style="text-decoration: underline;">Teammate 1: </p>
             <p>{{partner1}}</p>
         </div>
         <div class="statDetails">
-            <p style="text-decoration: underline;">Partner 2: </p>
+            <p style="text-decoration: underline;">Teammate 2: </p>
             <p>{{partner2}}</p>
         </div>
         {{!-- <div class="statDetails" id="partner3div" style="visibility: collapse;">
@@ -93,9 +93,16 @@
         text-align: center;
 
     }
+    #match {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+    }
     #match:hover{
         cursor: pointer;
-        color: #39F3FF;
+        background-color: #343a40!important;
+        border-bottom: solid;
+        border-color: : #dfd9d7;
     }
     #profileStats {
         display: flex;
