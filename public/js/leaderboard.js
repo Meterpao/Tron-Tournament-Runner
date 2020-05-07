@@ -36,7 +36,7 @@ async function initLeaderboard() {
         let img = document.createElement('img');
         img.setAttribute('class', 'profile-img');
         img.setAttribute('src', defaultProfilePic);
-        img.setAttribute('alt', 'player profile pic, nothing special');
+        img.setAttribute('alt', 'player profile pic');
         td.append(img);
         tr.appendChild(td);
 
