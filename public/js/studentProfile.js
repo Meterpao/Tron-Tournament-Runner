@@ -35,8 +35,12 @@ async function initSeriesList() {
         matchHistory.removeChild(matchHistory.firstChild);
     }
 
+    // report number of matches played
+    let totalMatches = seriesJson.length;
+    document.getElementById('totalMatches').innerHTML = 'Matches Played: ' + totalMatches;
+
     // construct list
-    for (let i = 0; i < seriesJson.length; i++) {
+    for (let i = 0; i < totalMatches; i++) {
         let series = seriesJson[i];
         let li = document.createElement('li');
         let playerOne = playerDict[series['playerOneId']];
@@ -56,6 +60,7 @@ async function initSeriesList() {
 
         // li.setAttribute('border', '3px dashed #ff5722');
         li.innerHTML = seriesString + spaceBetween.innerHTML + replayString.innerHTML;
+        li.setAttribute('id', 'match');
 
 
 

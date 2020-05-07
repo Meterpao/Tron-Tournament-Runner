@@ -14,7 +14,7 @@
         <p>Player id: {{playerId}}</p>
         <p>ELO: {{elo}}</p>
         <p>Score: {{score}}</p>
-        <p>Total Matches: '{{totalMatches}}'</p>
+        <p id="totalMatches">Total Matches: '{{totalMatches}}'</p>
     </div>
     <div id="profileRight">
         <div id="playerInfo" class="m-4">
@@ -93,9 +93,9 @@
         text-align: center;
 
     }
-    #matchHistory:hover{
+    #match:hover{
         cursor: pointer;
-        color: white;
+        color: #39F3FF;
     }
     #profileStats {
         display: flex;
