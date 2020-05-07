@@ -4,7 +4,7 @@
 <div id="botNum">
     <a id="back-btn" class="btn btn-outline-light" href="/leaderboard" role="button">←　Back to Leaderboard</a>
 
-{{!-- <h1 class="center"> {{botName}} </h1> --}}
+<h1 class="center"> {{botName}}'s Player Profile </h1>
 </div>
 <div id="playerIdDiv" style="display: none"> {{playerId}}</div>
 <div id="profileStats">
@@ -12,38 +12,46 @@
         {{!-- <img src="homelogo.png" alt="Bot Team Icon" class="img"> --}}
         <h2 id="botName" class="center" style="color:#39F3FF"> {{botName}} </h2>
         <p>Player id: {{playerId}}</p>
-        <p>ELO: {{elo}}</p>
-        <p>Score: {{score}}</p>
-        <p id="totalMatches">Total Matches: '{{totalMatches}}'</p>
+        <p>Teammate 1: {{partner1}}</p>
+        <p>Teammate 2: {{partner2}}</p>
+        {{!-- <p id="totalMatches">Total Matches: '{{totalMatches}}'</p> --}}
     </div>
     <div id="profileRight">
         <div id="playerInfo" class="m-4">
         {{!-- <p>Player id: {{playerId}}</p> --}}
-        <div class="statDetails">
+        {{!-- <div class="statDetails">
             <p style="text-decoration: underline;">Teammate 1: </p>
             <p>{{partner1}}</p>
         </div>
         <div class="statDetails">
             <p style="text-decoration: underline;">Teammate 2: </p>
             <p>{{partner2}}</p>
+        </div> --}}
+        <div class="statDetails">
+            <p class="statsTop">ELO: </p>
+            <p>{{elo}}</p>
+        </div>
+        <div class="statDetails">
+            <p class="statsTop">Score: </p>
+            <p>{{score}}</p>
+        </div>
+        <div class="statDetails">
+            <p class="statsTop long">Total Matches: </p>
+            <p id="totalMatches">{{totalMatches}}</p>
+        </div>
+        <div class="statDetails">
+            <p class="statsTop long">Total Wins: </p>
+            <p id="totalWins">{{totalMatches}}</p>
+        </div>
+                <div class="statDetails">
+            <p class="statsTop long" >Total Losses: </p>
+            <p id="totalLosses"></p>
         </div>
         {{!-- <div class="statDetails" id="partner3div" style="visibility: collapse;">
             <p style="text-decoration: underline;">Partner 3: </p>
             <p>{{partner3}}</p>
         </div> --}}
-        {{!-- <div class="statDetails" >
-            <p style="text-decoration: underline;">ELO: </p>
-            <p>{{elo}}</p>
-        </div>
-        <div class="statDetails">
-            <p style="text-decoration: underline;">Score: </p>
-            <p>{{score}}</p>
-        </div> --}}
-        {{!-- <p>Partner 1: {{partner1}}</p>
-        <p>Partner 2: {{partner2}}</p>
-        <p>Partner 3: {{partner3}}</p>
-        <p>ELO: {{elo}}</p>
-        <p>Score: {{score}}</p> --}}
+       
         </div>
         <div id="matchHistories" class="m-4">
             <p>MATCH HISTORY:</p>
@@ -59,10 +67,11 @@
         font-family: 'VT323', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         /*background-image: url('https://4.bp.blogspot.com/-BweIufIseaQ/T77OxbauWeI/AAAAAAABIlA/iqqcL7P0DgA/s1600/TRON_UPRISING_MIELGO.jpg');*/
     }
-    h1{
-        font-size: 8vw;
-        font-weight: bolder;
+
+    h1 {
+        font-size: 4vw;
     }
+
 
     h2 {
         font-size: 4vw;
@@ -80,14 +89,7 @@
         flex-direction: column;
     }
 
-    #back-btn {
-        color: white;
-        background-color:rgba(223, 217, 215, 0.25);
-        float: left;
-        margin: 3%;
-        vertical-align: center;
-        font-size: large;
-    }
+
     #matchHistory {
         list-style-type: none;
         text-align: center;
@@ -123,7 +125,6 @@
     .center{
         text-align: center;
         vertical-align: middle;
-        line-height: 100px;
     }
     #profileLeft {
         flex: 1;
@@ -141,6 +142,11 @@
 
     .statDetails {
         margin: 20px;
+        display: flex; 
+        flex-direction: column;
+
+
+        
     }
 
     #playerInfo{
@@ -153,7 +159,6 @@
         border: 3px dashed #ff5722;
         text-align: center;
         height: auto;
-        vertical-align: middle;
         background: rgba(0, 0, 0, 0.7);
         justify-content: space-around;
         
@@ -183,6 +188,17 @@
     }
     .replayLink:hover {
         color: white;
+    }
+
+    .statsTop {
+        flex: 1;
+        border-bottom: 2px solid #ff5722;
+        margin: auto 0 auto 0;
+
+    }
+
+    .long {
+        font-size: 2vw
     }
 
 

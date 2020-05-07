@@ -1,4 +1,5 @@
 <body>
+
     <div id="hiddenDiv" style="display: none">
         <div id="replayLinkDiv" style="display: none"> {{replayLink}}</div>
         <div id="playerOneDiv" style="display: none"> {{playerOne}}</div>
@@ -8,13 +9,18 @@
     </div>
 
     <div id="container">
+    <div>
+        <a id="back-btn" class="btn btn-outline-light" onclick="goBack()" role="button">←　Back to Player Profile</a>
+    </div>
         <div id="replayDetails">
-        <h1>
-            <span class="p1">{{playerOne}}</span>  v. <span class="p2">{{playerTwo}} </span>
-        </h1>
+        <h1 style="color:white">Match Replay</h1>
+
         <h2>
-            <span class="p1" id="playerOneNumWins"></span>: <span class="p2" id="playerTwoNumWins"></spanclass="p1">
+            <span class="p1">{{playerOne}}</span>  v. <span class="p2">{{playerTwo}} </span>
         </h2>
+        <h3>
+            <span class="p1" id="playerOneNumWins"></span>: <span class="p2" id="playerTwoNumWins"></spanclass="p1">
+        </h3>
         </div>
     <div id="replay">
         {{{board}}}
@@ -49,7 +55,7 @@ header {
 h1 {
     color: #E06800;
     font-family: 'VT323','Atari Classic Chunky';
-    font-size: 64px;
+    font-size: 4vw;
     margin-bottom: 15px;
     /*text-transform: uppercase;*/
 }
@@ -192,6 +198,8 @@ a:hover {
 }
 
 #container {
+    display:flex;
+    flex-direction: column;
     text-align: center;
 
 }
@@ -206,7 +214,9 @@ a:hover {
 
 }
 
-{{!-- body{
+
+
+/*body{
     background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/144dd349848789.58c0373d1982f.jpg');
     background-size: 100%;
     color: rgb(19, 9, 9);
@@ -222,7 +232,12 @@ a:hover {
 }
 p{
     font-size: 5vw;
-} --}}
+} */
 </style>
 
 <script src="/js/series.js"></script>
+<script>
+    function goBack() {
+  window.history.back();
+}
+</script>

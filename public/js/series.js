@@ -12,6 +12,7 @@ if (firstPlayerWin === 'true') {
   document.getElementById('playerOneNumWins').innerHTML = 5 - winCount;  
 }
 
+
 const containers = document.getElementsByClassName("game");
 let games = [];
 let gamesCurrIndex = [];
@@ -27,6 +28,7 @@ function restart(index) {
 }
 
 for (container of containers) {
+
     let frames = container.childNodes;
     for (frame of frames) frame.style.display = "none";
     frames[0].style.display = "block";

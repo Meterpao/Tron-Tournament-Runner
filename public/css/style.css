@@ -25,6 +25,10 @@
 
 }
 
+.enter-btn:hover {
+  color: white;
+}
+
 .center {
   margin: auto;
   width: 50%;
@@ -40,5 +44,15 @@
 .no-bullets {
   list-style-type: none;
 }
+
+#back-btn {
+  color: white;
+  background-color:rgba(223, 217, 215, 0.25);
+  float: left;
+  margin: 3% 0 0 3%;
+  vertical-align: center;
+  font-size: large;
+}
+
 
 

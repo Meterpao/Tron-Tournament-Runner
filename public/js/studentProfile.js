@@ -1,6 +1,8 @@
 let playerIdDiv = document.getElementById('playerIdDiv');
 let playerId = playerIdDiv.innerHTML; 
 let matchHistory = document.getElementById('matchHistory');
+let totalWins = 0;
+let totalLosses = 0;
 window.document.title = document.getElementById('botName').innerText + "'s Stats";
 
 
@@ -37,7 +39,8 @@ async function initSeriesList() {
 
     // report number of matches played
     let totalMatches = seriesJson.length;
-    document.getElementById('totalMatches').innerHTML = 'Matches Played: ' + totalMatches;
+    // document.getElementById('totalMatches').innerHTML = 'Matches Played: ' + totalMatches;
+    document.getElementById('totalMatches').innerHTML =  totalMatches;
 
     // construct list
     for (let i = 0; i < totalMatches; i++) {
@@ -46,6 +49,7 @@ async function initSeriesList() {
         let playerOne = playerDict[series['playerOneId']];
         let playerTwo = playerDict[series['playerTwoId']];
         let winCount = series['winCount'];
+        totalWins += winCount;
         // check if first player won
         let thisIsPlayerOne = series['playerOneId'] === parseInt(playerId);
         let thisPlayerWon = series['seriesWinner'] === parseInt(playerId);
@@ -80,8 +84,14 @@ async function initSeriesList() {
         })
 
         // append to table
+        totalLosses = (totalMatches * 5) - totalWins;
+        // console.log(totalWins);
+        // console.log(totalLosses);
+        document.getElementById('totalWins').innerHTML =  totalWins;
+        document.getElementById('totalLosses').innerHTML =  totalLosses;
+
         matchHistory.appendChild(li);
     }
-    
+
 }
 window.onload = initSeriesList;

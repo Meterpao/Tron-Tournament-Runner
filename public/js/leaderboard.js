@@ -19,6 +19,7 @@ async function initLeaderboard() {
 
     // sort players by descending score
     playersJson = playersJson.sort((a, b) => b['score'] - a['score']);
+
     
     // add players to leaderboard
     for (let i = 0; i < playersJson.length; i++) {
@@ -64,6 +65,7 @@ async function initLeaderboard() {
         // append to table
         leaderboard.appendChild(tr);
     }
+
 }
 
 window.onload = initLeaderboard;
