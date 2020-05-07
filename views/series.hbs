@@ -13,7 +13,9 @@
         <a id="back-btn" class="btn btn-outline-light" onclick="goBack()" role="button">←　Back to Player Profile</a>
     </div>
         <div id="replayDetails">
-        <h1 style="color:white">Match Replay</h1>
+        <h1 style="color:white; text-decoration: underline;">Match Replay</h1>
+        <p>A player loses by colliding with a barrier or one of the innate walls of the board. Powerups are indicated by an * on the board. 
+            A player will automatically obtain a powerup by stepping on it. Individual replays can be reset using the 'R' button on the right of each board.</p>
 
         <h2>
             <span class="p1">{{playerOne}}</span>  v. <span class="p2">{{playerTwo}} </span>
@@ -26,6 +28,58 @@
         {{{board}}}
     </div>
         </div>
+        <!-- Footer -->
+<footer class="page-footer font-small pt-4 my-footer">
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+    <!-- Grid row -->
+    <div class="row">
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3">
+        <!-- Content -->
+        <h5 class="text-uppercase">Get Started</h5>
+        <p>Want To Know More About Our Games?</p>
+      </div>
+      <!-- Grid column -->
+      <hr class="clearfix w-100 d-md-none pb-3">
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+        <!-- Links -->
+        <h5 class="text-uppercase">CSCI1410@Brown</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="http://cs.brown.edu/courses/csci1410/">CSCI1410@Brown</a>
+          </li>
+          <li>
+            <a href="http://cs.brown.edu/courses/csci1410/assignments/tron.pdf">Final Project</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+        <!-- Links -->
+        <h5 class="text-uppercase">Tron</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://en.wikipedia.org/wiki/Tron#Tron:_Legacy">Tron 1982</a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="http://cs.brown.edu/courses/csci1320/"> CSCI1320@Brown</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
 
 </body>
 <style>
@@ -64,6 +118,10 @@ h4 {
     text-align: center;
 }
 
+p {
+    font-size: 2.5vh;
+}
+
 li {
     list-style: none;
     text-align: center;
@@ -78,9 +136,9 @@ input {
     margin-bottom: 18px;
 }
 
-a {
-    color: #9C9CB2;
-}
+    a{
+      color: #85d7f8;
+    }
 
 a:hover {
     color: white;
